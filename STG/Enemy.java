@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.List;
 
 /**
  * Write a description of class Obstacle here.
@@ -10,6 +11,7 @@ public class Enemy extends SmoothMover
 {
     protected int x, y;
     protected World w;
+    protected  List<PlayerBullet> bullets;
     public void setPosition(int x, int y)
     {
         this.x = x;
@@ -24,5 +26,8 @@ public class Enemy extends SmoothMover
         return y;
     }
 
-    
+    protected void hitDetection()
+    { 
+      bullets = getIntersectingObjects(PlayerBullet.class);
+    }
 }

@@ -45,14 +45,14 @@ public class Boss extends Enemy
     
     private boolean chkAlive()
     {
-    
-       Actor ball = (getOneIntersectingObject(PlayerBullet.class));
-       if(ball != null)
+       hitDetection();
+       if(bullets.size() > 0)
        {
             w = getWorld();
-           w.removeObject(ball);
+           w.removeObjects(bullets);
+           health[nowPattern] -= bullets.size();
            StatusManager.GetInstance().StrikeEnemy();
-           if(--health[nowPattern] == 0)
+           if(health[nowPattern] <= 0)
                {  
                   return dead();
             }

@@ -68,25 +68,26 @@ public class Mob extends Enemy
     {
             if(this != null)
            {
-               Actor bullet = (getOneIntersectingObject(PlayerBullet.class));       
-           if(bullet != null)
-           {
-               w = getWorld();
-               w.removeObject(bullet);
-               StatusManager.GetInstance().StrikeEnemy();
-               if(--healthPoint == 0)
+               hitDetection();
+               if(bullets.size() > 0)
                {
-                   return dead();
+                    w = getWorld();
+                   w.removeObjects(bullets);
+                   healthPoint -= bullets.size();
+                   StatusManager.GetInstance().StrikeEnemy();
+                   if(healthPoint <= 0)
+                       {  
+                          return dead();
+                    }
                }
-           }
-           if( StatusManager.GetInstance().isBombOn())
-           {
-               w = getWorld();
-               if((healthPoint-=3) <= 0)
+               if( StatusManager.GetInstance().isBombOn())
                {
-                   return dead();
+                   w = getWorld();
+                   if((healthPoint-=3) <= 0)
+                   {
+                       return dead();
+                   }
                }
-           }
         }
         return true;
     } 
