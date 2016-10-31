@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Items
+comment1.params=
+comment1.target=void\ setAbsorb()
+comment2.params=
+comment2.target=void\ freeAbsorb()
+comment3.params=
+comment3.target=void\ act()
+comment4.params=
+comment4.target=void\ chkisEdge()
+comment5.params=
+comment5.target=void\ addItem()
+numComments=6

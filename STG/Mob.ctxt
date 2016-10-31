@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Mob
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ EnemyA\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=Mob()
+comment2.params=path\ shotBullet\ MAXpath\ health\ speed
+comment2.target=void\ set(Path[],\ ShotBullet,\ int,\ int,\ int)
+comment3.params=
+comment3.target=void\ act()
+comment4.params=
+comment4.target=void\ moveAlongPath()
+comment5.params=
+comment5.target=boolean\ chkAlive()
+comment6.params=
+comment6.target=boolean\ dead()
+numComments=7

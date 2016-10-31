@@ -1,0 +1,20 @@
+#BlueJ class context
+comment0.target=StageManager
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ StageManager\ here.\r\n\ \uC2A4\uD14C\uC774\uC9C0\uB97C\ \uB85C\uB529\uD558\uB294\ \uD568\uC218\ stageN.txt\uB85C\uBD80\uD130\ \uC815\uBCF4\uB97C\ \uBC1B\uC740\ \uB4A4\ \uD30C\uC2F1\uD558\uC5EC\ \uBC30\uC5F4\uC5D0\ \uC800\uC7A5\uD574\uB454\uB2E4\r\n\ @fullop\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=StageManager()
+comment2.params=
+comment2.target=void\ Init()
+comment3.params=t
+comment3.target=Enemy\ getEnemy(double)
+comment4.params=stageNumber
+comment4.target=void\ loadEnemy(int)
+comment5.params=stageNumber
+comment5.target=void\ ParseEnemy(int)
+comment6.params=
+comment6.target=void\ ParseBoss()
+comment7.params=
+comment7.target=void\ ParseMob()
+comment8.params=follower
+comment8.target=ShotBullet\ parseBulletController(Enemy)
+numComments=9

@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=BackgroundSwap
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ BackgroundSwap\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=fadeOff\ idleTime\ fadeIn\ transparency\ color
+comment1.target=BackgroundSwap(int,\ int,\ int,\ int,\ java.awt.Color)
+comment2.params=fadeOff\ idleTime\ fadeIn\ transparency
+comment2.target=BackgroundSwap(int,\ int,\ int,\ int)
+comment3.params=
+comment3.target=void\ act()
+numComments=4

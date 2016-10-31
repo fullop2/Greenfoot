@@ -1,0 +1,27 @@
+Mob type :
+time
+type, init x, init y, path num, move speed, health
+bulletController
+Path
+Path...
+
+Boss type :
+time
+type, init x, init y, path num, random move, pattern number
+pattern health, bulletController 
+pattern health, patbulletController turn...
+
+bulletController :
+atk time,
+bullet speed, bullet torque, 
+main num, 
+main delay, 
+sub number, 
+sub delay, 
+main bullet angle, 
+player aim, 
+bulletcontroller turn, 
+bulletcontroller torque
+
+Path :
+x, y, idleTime
