@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List;
 
- public class Player extends PlayerStatus
+public class Player extends PlayerStatus
 {
     // Singleton
     private static Player player;
@@ -110,7 +110,7 @@ import java.util.List;
                getWorld().removeObjects(scoreItems);   
            } 
            
-           if(bullets.size() > 0 )  
+           if(!bullets.isEmpty() )  
            {  
                 World w = getWorld();
                 if(bombAttack.immortalTime <= 0)
