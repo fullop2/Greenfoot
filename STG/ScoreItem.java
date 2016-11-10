@@ -8,4 +8,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class ScoreItem extends Items
 {
+    @Override
+    protected void addItem()
+    {
+        StatusManager.GetInstance().ItemGet();
+    }
 }

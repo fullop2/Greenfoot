@@ -12,20 +12,20 @@ public class PlayerAttack extends PlayerStatus
     
     public double power;
     
-    public int shotDelay = 0;
-    public int subshotDelay = 1;
-    public int subCount= 0;
+    private int shotDelay = 0;
+    private int subshotDelay = 1;
+    private int subCount= 0;
         
-    public PlayerBullet bullet;
+    private PlayerBullet bullet;
     
-    public int weaponCount;
-    public Weapon subWeapon[] = new Weapon[4];
+    private int weaponCount;
+    private Weapon subWeapon[] = new Weapon[4];
     
-    public int wL[][][] = {{{0,28}},
+    private int wL[][][] = {{{0,28}},
                            {{-13,28},{13,28}},
                            {{-25,10},{0,28},{25,10}},
                            {{-30,10},{-10,28},{10,28},{30,10}}}; // weapon 수에 따른 weapon들의 position
-    public int wA[][][] = {{{0,0}},
+    private int wA[][][] = {{{0,0}},
                            {{-13,0},{13,0}},
                            {{-25,-10},{0,0},{25,10}},
                            {{-30,-10},{-5,0},{5,0},{30,10}}}; // weapon 수에 따른 weapon이 쏘는 bullet의 공격 각도
@@ -37,13 +37,13 @@ public class PlayerAttack extends PlayerStatus
             world = Player.getInstance().getWorld();
     }
     
-    public void SetPosition()
+    public void SetPosition(int x, int y)
     {
         weaponCount = (int)power - 1;
         for(int i = 0; i <= weaponCount; i++)
             {
-                world.addObject(subWeapon[i],Player.getInstance().getX() + wL[weaponCount][i][0], Player.getInstance().getY() + wL[weaponCount][i][1]); 
-                subWeapon[i].setlocation(Player.getInstance().getX() + wL[weaponCount][i][0], Player.getInstance().getY() + wL[weaponCount][i][1]); 
+                world.addObject(subWeapon[i],x + wL[weaponCount][i][0], y + wL[weaponCount][i][1]); 
+                subWeapon[i].setlocation(x + wL[weaponCount][i][0], y + wL[weaponCount][i][1]); 
             }    
     }
     

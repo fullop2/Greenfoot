@@ -16,11 +16,13 @@ public class BackgroundSwap extends Effects
     private int value;
     private boolean inf;
     private int transparency;
+    static int xpos = 320;
+    static int ypos = 357;
     
     public BackgroundSwap(int fadeOff,int idleTime, int fadeIn, int transparency, Color color)
     {
         this(fadeOff,idleTime,fadeIn,transparency);
-        GreenfootImage image = new GreenfootImage(960,720);
+        GreenfootImage image = new GreenfootImage(500,680);
         image.setColor(color);
         image.setTransparency(0);
         image.fill();

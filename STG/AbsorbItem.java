@@ -7,13 +7,13 @@ import java.util.List;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class AbsorbItem extends PlayerStatus
+public class AbsorbItem
 {
     public boolean mode;
     public List<Items> ItemList;
     public boolean Line(int ypos)
     {
-        if(ypos < 120)
+        if(ypos < 150)
             return true;
         else 
             return false;
@@ -27,11 +27,4 @@ public class AbsorbItem extends PlayerStatus
         }
     }
     
-    public void free()
-    {
-        for(Items item : ItemList)
-        {
-            item.freeAbsorb();
-        }
-    }
 }

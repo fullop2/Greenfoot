@@ -9,12 +9,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class EnemyBullet extends Bullet
 {
     int delta = 30;
+    int bombIdle;
+    boolean remove = false;
+    boolean grazed = false;
    public EnemyBullet(int speed, int angle,int rot)
     {
-        
-        this.speed = speed;
-        this.rot = rot;
-        
+        super(speed,rot);
+        bombIdle = Greenfoot.getRandomNumber(9) + 4;
     }
    
     public EnemyBullet(EnemyBullet a)
@@ -38,12 +39,24 @@ public class EnemyBullet extends Bullet
             else if(rot > 0)
             rot--;
         }
-        chkisEdge();
+
+        Destroy();
     } 
     
-    public void Destroy()
+    public void Remove()
     {
-            getWorld().addObject(new PowerItem(),getX(),getY());
+        remove = true;
+    }
+    
+    private void Destroy()
+    {
+        if(isAtEdge())
+        {
             getWorld().removeObject(this);
+        }
+        else if(remove && --bombIdle < 0)
+        {
+            getWorld().removeObject(this);
+        }
     }
 }

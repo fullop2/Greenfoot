@@ -1,5 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-public class PlayerStatus extends SmoothMover
+public abstract class PlayerStatus extends SmoothMover
 {
+
 }

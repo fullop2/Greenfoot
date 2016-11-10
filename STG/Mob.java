@@ -1,10 +1,9 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class EnemyA here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+* Enemy Class를 상속받은 일반 Enemy
+* 저장된 Path를 따라 이동한다
+* 하나의 ShotBullet을 가지고 있다
  */
 public class Mob extends Enemy
 {
@@ -68,33 +67,33 @@ public class Mob extends Enemy
     {
             if(this != null)
            {
-               hitDetection();
-               if(bullets.size() > 0)
+               Actor bullet = (getOneIntersectingObject(PlayerBullet.class));       
+           if(bullet != null)
+           {
+               w = getWorld();
+               w.removeObject(bullet);
+               StatusManager.GetInstance().StrikeEnemy();
+               if(--healthPoint == 0)
                {
-                    w = getWorld();
-                   w.removeObjects(bullets);
-                   healthPoint -= bullets.size();
-                   StatusManager.GetInstance().StrikeEnemy();
-                   if(healthPoint <= 0)
-                       {  
-                          return dead();
-                    }
+                   return dead();
                }
-               if( StatusManager.GetInstance().isBombOn())
+           }
+           if( StatusManager.GetInstance().isBombOn())
+           {
+               w = getWorld();
+               if((healthPoint-=3) <= 0)
                {
-                   w = getWorld();
-                   if((healthPoint-=3) <= 0)
-                   {
-                       return dead();
-                   }
+                   return dead();
                }
+           }
         }
         return true;
     } 
     
     protected boolean dead()
     {
-          w.addObject(new ScoreItem(),getX(),getY());
+          w.addObject(new ScoreItem(),getX()-3,getY());
+          w.addObject(new PowerItem(),getX()+3,getY());
           w.removeObject(shotBullet);
           w.removeObject(this);
           return false;

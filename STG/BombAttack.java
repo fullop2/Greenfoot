@@ -1,6 +1,6 @@
 import greenfoot.*;
 /**
- * Write a description of class BombAttack here.
+ * Bomb Attack class
  * 
  * @author (your name) 
  * @version (a version number or a date)
@@ -10,25 +10,26 @@ public class BombAttack extends PlayerStatus
     private World world;
     public double bomb; 
     public int immortalTime;
-    public BombEffect bombEffect;
-    public int bombDelay;
-    public int bombAvailTime;
+    private BombEffect bombEffect;
+    private int bombDelay;
+    private int bombAvailTime;
     
     public BombAttack()
     {
         world = Player.getInstance().getWorld();
     }
-    public void Attack()
+    public void act()
     {
-        if (--bombDelay < 0 && Greenfoot.isKeyDown("x") && bomb >= 1)
+        if (--bombDelay < 0 && Greenfoot.isKeyDown("x"))
            {
-               --bomb;
                immortalTime = 420;
                bombDelay = 300;
+               
                bombEffect = new BombEffect(Player.getInstance().getX(),Player.getInstance().getY());
-               BackgroundSwap bgs = new BackgroundSwap(60,180,30,230);
+               BackgroundSwap bgs = new BackgroundSwap(30,100,100,230);
                world.addObject(bombEffect,Player.getInstance().getX(),Player.getInstance().getY());
-               world.addObject(bgs,480,360);
+               world.addObject(bgs,BackgroundSwap.xpos,BackgroundSwap.ypos);
+               
             }
     }
 }

@@ -8,6 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Boss extends Enemy
 {
+    int idleTime = 120;
     int t = 5;
     int patternNumber;
     protected ShotBullet shotBullets[] = new ShotBullet[6];
@@ -26,35 +27,39 @@ public class Boss extends Enemy
     
     public void act()
     {
-            if(chkAlive())
+        if(--idleTime < 0)
             {
-            getWorld().addObject(shotBullets[nowPattern],getX(),getY());
-            shotBullets[nowPattern].setLocation(getX(),getY());
-        }
-        else if(nowPattern < patternNumber)
-        {
-            if(++nowPattern == patternNumber)
-            {
-                World w = getWorld();
-                w.removeObject(this);
-                w.removeObjects(w.getObjects(EnemyBullet.class));
-                StatusManager.GetInstance().StageChange();
+                if(chkAlive())
+                {
+                getWorld().addObject(shotBullets[nowPattern],getX(),getY());
+                shotBullets[nowPattern].setLocation(getX(),getY());
             }
+            else if(nowPattern < patternNumber)
+            {
+                if(++nowPattern == patternNumber)
+                {
+                    World w = getWorld();                
+                    deadMotion();
+                    w.removeObject(this);
+                    StatusManager.GetInstance().StageChange();
+                }
+            }
+            
         }
+   
     }
     
     private boolean chkAlive()
-    {
-       hitDetection();
-       if(bullets.size() > 0)
+    { 
+       Actor ball = (getOneIntersectingObject(PlayerBullet.class));
+       if(ball != null)
        {
-            w = getWorld();
-           w.removeObjects(bullets);
-           health[nowPattern] -= bullets.size();
+           w = getWorld();
+           w.removeObject(ball);
            StatusManager.GetInstance().StrikeEnemy();
-           if(health[nowPattern] <= 0)
+           if(--health[nowPattern] == 0)
                {  
-                  return dead();
+                  return spellBreak();
             }
        }
        if(StatusManager.GetInstance().isBombOn())
@@ -62,17 +67,23 @@ public class Boss extends Enemy
            w = getWorld();
            if((health[nowPattern]-=3) <= 0)
            {
-               return dead();
+               return spellBreak();
            }
        }
        return true;
     } 
     
-    private boolean dead()
+    private void deadMotion()
     {
           w.addObject(new PowerItem(),getX(),getY());
+          ((BaseWorld)w).bulletClear();        
+    }
+    private boolean spellBreak()
+    {
+          deadMotion();
+          w.addObject(new BombItem(),getX(),getY());
           w.removeObject(shotBullets[nowPattern]);
-          w.removeObjects(w.getObjects(EnemyBullet.class));
+          idleTime = 120;
           return false;
     }
 }

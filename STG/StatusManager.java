@@ -32,7 +32,9 @@ public class StatusManager
    private int bombTimer;
    private int graze;
    private int point = 10000;
-
+   private int grazePoint;
+   private Player player;
+   
    // accessor
    public double getPower() {return power;};
    public double getBomb() {return bomb;};
@@ -40,6 +42,7 @@ public class StatusManager
    public int getScore() {return score;};
    public boolean getAlive() {return alive;};
    public int getGraze() {return graze;};
+   public int getPoint() {return point;};
    
    StatusManager()
    {
@@ -53,6 +56,8 @@ public class StatusManager
        score = 0;
        power = 1;
        bomb = 2;
+       graze = 0;
+       point = 10000;
     }
     
     public void act()
@@ -68,7 +73,14 @@ public class StatusManager
     {
         nowStage++;
     }
+   
     
+    public void addGraze(int n)
+    {
+        graze += n;
+        grazePoint = graze / 10 - (graze - n) / 10 ;
+        point += grazePoint * 100;
+    }
     public void PlayerDead()
     {
         if(power >= 2) power -= 1;
@@ -81,14 +93,20 @@ public class StatusManager
         score += 10;
     }
     
-    public void ItemGet(int n)
+    public void ItemGet()
     {
-        score += point * n;
+        score += point ;
+    }
+    
+    public void BulletItemGet()
+    {
+        score += 10;
+        point += 10;
     }
     
     public void BombOn()
     {
-        bombTimer = 180;
+        bombTimer = 100;
     }
     
     public boolean isBombOn()

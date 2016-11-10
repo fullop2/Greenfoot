@@ -18,10 +18,15 @@ public abstract class Bullet extends SmoothMover
     {
     }
     
-    public Bullet(Bullet a)
+    protected Bullet(int speed, int rot)
     {
-        this.speed = a.speed;
-        this.rot = a.rot;
+        this.speed = speed;
+        this.rot = rot;
+    }
+    
+    protected Bullet(Bullet a)
+    {
+        this(a.speed,a.rot);
     }
         
    public void act() 

@@ -13,7 +13,7 @@ public abstract class Items extends SmoothMover
     
     public void act()
     {
-        if(!absorbMode)
+        if(!StatusManager.GetInstance().getAlive() || !absorbMode)
         {
                 if( cnt > 0) 
             {
@@ -35,23 +35,29 @@ public abstract class Items extends SmoothMover
             velocity = 15 / Math.sqrt(dx*dx+dy*dy);
  
             setLocation(getX() + dx*velocity,getY() + dy*velocity);
-            
-            if(dx * dy <= 225)
-                addItem();
         }
+    
         chkisEdge();
+
     }
     
+    @Override
     protected void chkisEdge()
     {
        if(isAtEdge()) 
        {
          getWorld().removeObject(this);
        }
+       else
+       {
+        Actor player = getOneIntersectingObject(ItemGetBorder.class);
+        if(player != null)
+            {
+                addItem();
+                getWorld().removeObject(this);
+            } 
+        }
     }
     
-    protected void addItem()
-    {
-        
-    }
+    protected abstract void addItem();
 }

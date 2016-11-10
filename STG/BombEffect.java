@@ -26,14 +26,18 @@ public class BombEffect extends Effects
     
     public void act() 
     {
+               
         timer++;
         if(getImage().getHeight() >= 450)
             {
-                BackgroundSwap bgs = new BackgroundSwap(10,120,30,255,Color.white);
-                getWorld().addObject(bgs,480,360);
+                
+                StatusManager.GetInstance().BombOn();    
                 getImage().scale(getImage().getHeight()+100,getImage().getHeight()+100);
-                StatusManager.GetInstance().BombOn();
+                BackgroundSwap bgs = new BackgroundSwap(10,100,20,255,Color.white);
+                getWorld().addObject(bgs,BackgroundSwap.xpos,BackgroundSwap.ypos);
                 getWorld().removeObject(this);
+
+                
             }
         else 
             {

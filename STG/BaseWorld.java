@@ -2,6 +2,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.awt.Color;
 import java.awt.Font;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Stack;
 
 // 모든 월드의 베이스가 되는 클래스
 // 공통으로 포함되는 UI 및 스테이터스를 관리할 예정
@@ -30,6 +32,19 @@ public class BaseWorld extends World
    // absorbItem
    private AbsorbItem absorbItem = new AbsorbItem();
    
+   // DebugList
+   private List<EnemyBullet> list = new ArrayList<EnemyBullet>();
+   
+   public void addBomb()
+   {
+       LifeUI lifeUI = new LifeUI();
+       LifeStack.add(lifeUI);
+       addObject(lifeUI,600+30*LifeStack.size(),300);
+    }
+   
+   // GUI Status Display
+   Stack<LifeUI> LifeStack = new Stack<LifeUI>();
+   
    // Constructor
     public BaseWorld()
     {          
@@ -39,7 +54,7 @@ public class BaseWorld extends World
             
     }
     
-    
+
     // 기본 설정
     private void Contruct()
     {
@@ -55,7 +70,7 @@ public class BaseWorld extends World
         MakeUI("UI-power.png",660,330); 
         
         bg[0] = new GreenfootImage("Stage1.png");
-        bg[1] = new GreenfootImage("stage02a.png");
+        bg[1] = new GreenfootImage("stage02.png");
         
         BackgroundSwap bgs = new BackgroundSwap(1,10,60,255);
         addObject(bgs,480,360);
@@ -69,7 +84,7 @@ public class BaseWorld extends World
     // 스테이지에 진입시 적을 로딩함
     private void loadingEnemy()
     {
-            sm.loadEnemy(nowStage+1);
+        sm.loadEnemy(nowStage+1);
     }
     
     public void act()
@@ -112,7 +127,7 @@ public class BaseWorld extends World
                bulletClear();
                absorbItems();
             }
-       if(StatusManager.GetInstance().getAlive() && absorbItem.Line(Player.getInstance().getY()))
+       else if(StatusManager.GetInstance().getAlive() && absorbItem.Line(Player.getInstance().getY()))
          {
              absorbItems();
          }
@@ -124,8 +139,9 @@ public class BaseWorld extends World
                absorbItem.ItemList = getObjects(Items.class);
                absorbItem.absorb();       
     }
+    
    // 배경 스크롤 함수
-    private void bgScroll()
+   private void bgScroll()
     {   
         if(bgDelta > bg2.getHeight())
             bgDelta = 0;
@@ -153,7 +169,7 @@ public class BaseWorld extends World
             List<EnemyBullet> Bullets = getObjects(EnemyBullet.class);
             for(EnemyBullet bullet : Bullets)
             {
-                bullet.Destroy();
+                bullet.Remove();
             }
    }
     
@@ -176,27 +192,27 @@ public class BaseWorld extends World
           loadingEnemy();
         }
     }
-    
-    
-    
-    
+
    // UI 로딩 함수
    private void UI()
     {   
         StatusManager.GetInstance().act();
         showText(String.format("%.2f",StatusManager.GetInstance().getPower()), 750 ,330);
         showText(String.format("%.2f",StatusManager.GetInstance().getBomb()), 750, 290);
+        showText(String.format("%,d",StatusManager.GetInstance().getPoint()), 750, 370);
+        showText(String.format("%,d",StatusManager.GetInstance().getGraze()), 750, 410);
         showText(String.format("%d",(int)frame++), 610,700);
         showText(String.format("%.1f",fps),930,700);
         showText(new java.text.DecimalFormat("00,0000,0000").format(StatusManager.GetInstance().getScore()),765,150);
+        showText(Integer.toString(getObjects(EnemyBullet.class).size()), 610, 675);
     }
    
     // fps 출력 함수
     private void FPS()
     {
-        if(frame % 40 == 0)
+        if(frame % 10 == 0)
             {
-                fps = 40000.0f / (System.currentTimeMillis() - prevTime) ;
+                fps = 10000.0f / (System.currentTimeMillis() - prevTime) ;
               prevTime = System.currentTimeMillis();
             }
     }

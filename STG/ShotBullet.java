@@ -7,29 +7,29 @@ import greenfoot.GreenfootImage;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class ShotBullet extends SmoothMover
+public abstract class ShotBullet extends SmoothMover
 {
     // 복사할 탄막
-    public EnemyBullet obj;
+    protected EnemyBullet obj;
     
     // 따라다닐 적 기체
-    public Enemy enemy;
+    protected Enemy enemy;
     
     // 탄막 생성을 위한 변수들
-    public int mainNum;
-    public int subNum;
-    public int mainDelay;
-    public int subDelay;
-    public int time, subTime;
-    public int leftCount;
-    public int aimAngle;
-    public boolean playerAim;
-    public boolean rotate = false;
-    public int rotVal;
-    public int availTime;
-    public int rrot;
-    public Effect effect;
-    public int increaseSpeed;
+    protected int mainNum;
+    protected int subNum;
+    protected int mainDelay;
+    protected int subDelay;
+    protected int time, subTime;
+    protected int leftCount;
+    protected int aimAngle;
+    protected boolean playerAim;
+    protected boolean rotate = false;
+    protected int rotVal;
+    protected int availTime;
+    protected int rrot;
+    protected Effect effect;
+    protected int increaseSpeed;
     
     // 생성자
     protected ShotBullet(int availTime,

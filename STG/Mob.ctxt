@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Mob
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ EnemyA\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ Enemy\ Class\uB97C\ \uC0C1\uC18D\uBC1B\uC740\ \uC77C\uBC18\ Enemy\r\n\ \uC800\uC7A5\uB41C\ Path\uB97C\ \uB530\uB77C\ \uC774\uB3D9\uD55C\uB2E4\r\n\ \uD558\uB098\uC758\ ShotBullet\uC744\ \uAC00\uC9C0\uACE0\ \uC788\uB2E4\r\n
 comment1.params=
 comment1.target=Mob()
 comment2.params=path\ shotBullet\ MAXpath\ health\ speed
