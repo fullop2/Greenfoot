@@ -23,6 +23,7 @@ public class NormalShot extends ShotBullet
     {
         super(availTime,enemy,obj,mainNum,mainDelay,subNum,subDelay,aimAngle,playerAim,rotate,rotVal, 0);
     }
+    
                 public void act()
     {
         if(--time < 0)

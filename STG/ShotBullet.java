@@ -56,19 +56,21 @@ public abstract class ShotBullet extends SmoothMover
         this.playerAim = playerAim;
         this.rotate = rotate;
         this.rotVal = rotVal; 
-        this.increaseSpeed =increaseSpeed;
+        this.increaseSpeed = increaseSpeed;
         effect = new Effect(2,60);
         
         setRotation(90);
    
     }
     
+
+    
     protected void Turning()
     {
          if(playerAim)
          {
                if(StatusManager.GetInstance().getAlive())
-                  turnTowards(Player.getInstance().getX(),Player.getInstance().getY());
+                  turnTowards(baseWorld.player.getX(),baseWorld.player.getY());
          }
          else if(rotate)
          {

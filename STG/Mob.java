@@ -34,18 +34,23 @@ public class Mob extends Enemy
         this.speed = speed;
     }
     
+
+    public void Init()
+    {
+        getWorld().addObject(shotBullet,getX(),getY());
+    }
+    
     public void act() 
     {
         if(chkAlive())
-            {
-                moveAlongPath();
-            getWorld().addObject(shotBullet,getX(),getY());
+        {
+            moveAlongPath();   
             shotBullet.setLocation(getX(),getY());
         }
     }
     
     // 이동 함수
-    private void  moveAlongPath()
+    private void moveAlongPath()
     {
         if(nowpath < MAXpath)
         {
@@ -70,32 +75,33 @@ public class Mob extends Enemy
                Actor bullet = (getOneIntersectingObject(PlayerBullet.class));       
            if(bullet != null)
            {
-               w = getWorld();
-               w.removeObject(bullet);
+               getWorld().removeObject(bullet);
                StatusManager.GetInstance().StrikeEnemy();
                if(--healthPoint == 0)
                {
-                   return dead();
+                   return remove();
                }
            }
            if( StatusManager.GetInstance().isBombOn())
            {
-               w = getWorld();
                if((healthPoint-=3) <= 0)
                {
-                   return dead();
+                   return remove();
                }
            }
         }
         return true;
     } 
     
-    protected boolean dead()
+    protected boolean remove()
     {
-          w.addObject(new ScoreItem(),getX()-3,getY());
-          w.addObject(new PowerItem(),getX()+3,getY());
-          w.removeObject(shotBullet);
-          w.removeObject(this);
+          ScoreItem scoreItem = new ScoreItem();
+          PowerItem powerItem = new PowerItem();
+          
+          getWorld().addObject(scoreItem,getX()-3,getY());
+          getWorld().addObject(powerItem,getX()+3,getY());
+          getWorld().removeObject(shotBullet);
+          getWorld().removeObject(this);
           return false;
     }
 }

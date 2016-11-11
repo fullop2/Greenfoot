@@ -7,28 +7,32 @@ import greenfoot.*;
  */
 public class BombAttack extends PlayerStatus
 {
-    private World world;
-    public double bomb; 
-    public int immortalTime;
+    private int bomb; 
     private BombEffect bombEffect;
     private int bombDelay;
     private int bombAvailTime;
-    
-    public BombAttack()
+   
+    public void addBomb()
     {
-        world = Player.getInstance().getWorld();
+        ++bomb;
     }
-    public void act()
+    
+    public int getBomb()
+    {
+        return bomb;
+    }
+    
+   public void act()
     {
         if (--bombDelay < 0 && Greenfoot.isKeyDown("x"))
            {
-               immortalTime = 420;
+               baseWorld.player.setImmortal();
                bombDelay = 300;
                
-               bombEffect = new BombEffect(Player.getInstance().getX(),Player.getInstance().getY());
+               bombEffect = new BombEffect(baseWorld.player.getX(),baseWorld.player.getY());
                BackgroundSwap bgs = new BackgroundSwap(30,100,100,230);
-               world.addObject(bombEffect,Player.getInstance().getX(),Player.getInstance().getY());
-               world.addObject(bgs,BackgroundSwap.xpos,BackgroundSwap.ypos);
+               getWorld().addObject(bombEffect,baseWorld.player.getX(),baseWorld.player.getY());
+               getWorld().addObject(bgs,BackgroundSwap.xpos,BackgroundSwap.ypos);
                
             }
     }

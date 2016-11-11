@@ -11,6 +11,6 @@ public class BombItem extends Items
     @Override
     protected void addItem()
     {
-        Player.getInstance().addBomb();
+
     }   
 }

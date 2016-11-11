@@ -35,6 +35,9 @@ public class BaseWorld extends World
    // DebugList
    private List<EnemyBullet> list = new ArrayList<EnemyBullet>();
    
+   // Player
+   public Player player;
+   
    public void addBomb()
    {
        LifeUI lifeUI = new LifeUI();
@@ -50,13 +53,12 @@ public class BaseWorld extends World
     {          
         super(960, 720, 1, false);
         Greenfoot.setSpeed(50);
-        Contruct();
-            
+        Init();   
     }
     
 
     // 기본 설정
-    private void Contruct()
+    private void Init()
     {
         
         setPaintOrder(GUI.class,Player.class,Effect.class,Bullet.class,Weapon.class,Enemy.class,PlayerSprite.class,BombEffect.class,Items.class); // 드로잉 우선 순위
@@ -76,9 +78,10 @@ public class BaseWorld extends World
         addObject(bgs,480,360);
         
         loadingEnemy();
-
-        RevivePlayer();
-        StatusManager.GetInstance().reset();
+        SmoothMover.baseWorld = (BaseWorld)this;
+        InitPlayer();
+        StatusManager.GetInstance().Init();
+        StatusManager.setWorld(this);
     }
     
     // 스테이지에 진입시 적을 로딩함
@@ -100,11 +103,13 @@ public class BaseWorld extends World
         }
         else
            {
-               removeObject(Player.getInstance());
+               removeObject(player);
                Greenfoot.setWorld(new Main());
             }
         }
-        
+    
+   
+
     // 적을 호출하는 함수
    private void SpawnEnemy()
    {
@@ -112,6 +117,7 @@ public class BaseWorld extends World
        if(e != null)
        {
            addObject(e,e.gettX(),e.gettY());
+           e.Init();
        }
     }
     
@@ -120,14 +126,14 @@ public class BaseWorld extends World
         {
        if(StatusManager.GetInstance().Revival())
             {
-                    RevivePlayer();
+                    InitPlayer();
             }
        if(StatusManager.GetInstance().isBombOn())
             {
                bulletClear();
                absorbItems();
             }
-       else if(StatusManager.GetInstance().getAlive() && absorbItem.Line(Player.getInstance().getY()))
+       else if(StatusManager.GetInstance().getAlive() && absorbItem.Line(player.getY()))
          {
              absorbItems();
          }
@@ -135,9 +141,9 @@ public class BaseWorld extends World
    
    private void absorbItems()
    {
-               absorbItem.mode = true;
-               absorbItem.ItemList = getObjects(Items.class);
-               absorbItem.absorb();       
+         absorbItem.mode = true;
+         absorbItem.ItemList = getObjects(Items.class);
+         absorbItem.absorb();       
     }
     
    // 배경 스크롤 함수
@@ -155,11 +161,13 @@ public class BaseWorld extends World
    }
    
    
-   private void RevivePlayer()
+   private void InitPlayer()
    {
-       addObject(Player.getInstance(),300,600);
-       Player.getInstance().reset();       
-    }
+       player = new Player();
+ 
+       addObject(player,300,600);  
+       player.Init();
+   }
    
    
    

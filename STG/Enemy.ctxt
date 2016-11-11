@@ -7,4 +7,6 @@ comment2.params=
 comment2.target=int\ gettX()
 comment3.params=
 comment3.target=int\ gettY()
-numComments=4
+comment4.params=
+comment4.target=void\ Init()
+numComments=5

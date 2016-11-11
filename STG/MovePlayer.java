@@ -10,26 +10,25 @@ public class MovePlayer
 {
     private int speed = 4; 
     private int tmpSpeed;
-    
 
-    public int HorizontalMove()
+    public int HorizontalMove(int x)
     {
        ShiftPushed();
-       if(Greenfoot.isKeyDown("left") && Player.getInstance().getX() > 75)
-            {return -tmpSpeed;}
-       if(Greenfoot.isKeyDown("right") && Player.getInstance().getX() < 554)
-           {return +tmpSpeed;}
-       return 0;
+       if(Greenfoot.isKeyDown("left") && x > 75)
+            {return x-tmpSpeed;}
+       if(Greenfoot.isKeyDown("right") && x < 554)
+           {return x+tmpSpeed;}
+       return x;
     }
     
-    public int VerticalMove()
+    public int VerticalMove(int y)
     {
         ShiftPushed();
-       if(Greenfoot.isKeyDown("up") && Player.getInstance().getY() > 30)
-           {return -tmpSpeed;}
-       if(Greenfoot.isKeyDown("down") && Player.getInstance().getY() < 687)
-           {return +tmpSpeed;}
-       return 0;
+       if(Greenfoot.isKeyDown("up") && y > 30)
+           {return y-tmpSpeed;}
+       if(Greenfoot.isKeyDown("down") && y < 687)
+           {return y+tmpSpeed;}
+       return y;
     }
     
     private void ShiftPushed()

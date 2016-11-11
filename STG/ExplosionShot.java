@@ -38,9 +38,9 @@ public class ExplosionShot extends ShotBullet
     
     private void Shot()
     {
-        
          Effect e = new Effect(effect);
          getWorld().addObject(e,getX(),getY());
+         
          for(int tmp = 0;tmp < subNum; tmp++)
              for(int i = - mainNum / 2; i <= mainNum / 2; i++)
              {

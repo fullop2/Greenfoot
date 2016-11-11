@@ -9,7 +9,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public abstract class Enemy extends SmoothMover
 {
     protected int x, y;
-    protected World w;
     public void setPosition(int x, int y)
     {
         this.x = x;
@@ -24,5 +23,5 @@ public abstract class Enemy extends SmoothMover
         return y;
     }
 
-    
+    public abstract void Init();
 }

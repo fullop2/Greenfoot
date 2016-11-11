@@ -7,6 +7,6 @@ public class PowerItem extends Items
     @Override
     protected void addItem()
     {
-        Player.getInstance().addPower();
+        baseWorld.player.playerAttack.addPower();
     }
 }

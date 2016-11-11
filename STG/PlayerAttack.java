@@ -8,9 +8,7 @@ import greenfoot.*;
  */
 public class PlayerAttack extends PlayerStatus
 {
-    private World world;
-    
-    public double power;
+    private double power = 1;
     
     private int shotDelay = 0;
     private int subshotDelay = 1;
@@ -18,7 +16,7 @@ public class PlayerAttack extends PlayerStatus
         
     private PlayerBullet bullet;
     
-    private int weaponCount;
+    private int weaponCount = 0;
     private Weapon subWeapon[] = new Weapon[4];
     
     private int wL[][][] = {{{0,28}},
@@ -34,20 +32,48 @@ public class PlayerAttack extends PlayerStatus
     {
         for(int i = 0; i < 4; i++)
             { subWeapon[i] = new Weapon();}
-            world = Player.getInstance().getWorld();
     }
     
-    public void SetPosition(int x, int y)
+
+    public void Init()
     {
+         getWorld().addObject(subWeapon[0],baseWorld.player.getX() + wL[weaponCount][0][0], baseWorld.player.getY() + wL[weaponCount][0][1]);
+    }
+    
+    public void addPower()
+    { 
+        if(power + 0.01 < 4)
+            {power += 0.01;}
+        else
+            {power = 4;}
+        
         weaponCount = (int)power - 1;
         for(int i = 0; i <= weaponCount; i++)
-            {
-                world.addObject(subWeapon[i],x + wL[weaponCount][i][0], y + wL[weaponCount][i][1]); 
+        { 
+             getWorld().addObject(subWeapon[i],baseWorld.player.getX() + wL[weaponCount][i][0], baseWorld.player.getY() + wL[weaponCount][i][1]); 
+        }  
+    }
+    
+    public double getPower()
+    {
+        return power;
+    }
+    
+    
+    public void act()
+    {
+        attack();
+    }
+    
+    public void setPosition(int x, int y)
+    {
+        for(int i = 0; i <= weaponCount; i++)
+            { 
                 subWeapon[i].setlocation(x + wL[weaponCount][i][0], y + wL[weaponCount][i][1]); 
             }    
     }
     
-    public void Attack()
+    public void attack()
     { 
         // in act (or method it calls)
        if (--shotDelay < 0 && Greenfoot.isKeyDown("z"))
@@ -63,7 +89,7 @@ public class PlayerAttack extends PlayerStatus
                for(int i = -9;i<=9;i+=18)
                 {
                     bullet = new PlayerBullet(20,0);
-                    world.addObject(bullet,Player.getInstance().getX()+i,Player.getInstance().getY());   
+                    getWorld().addObject(bullet,baseWorld.player.getX()+i,baseWorld.player.getY());   
                 }
                if(subCount % 2 == 1)
                {

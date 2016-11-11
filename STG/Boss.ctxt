@@ -1,14 +1,16 @@
 #BlueJ class context
 comment0.target=Boss
 comment0.text=\r\n\ Write\ a\ description\ of\ class\ BossA\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=health\ shotBullets\ patternNumber\ randomMov
-comment1.target=void\ setBoss(int[],\ ShotBullet[],\ int,\ boolean)
-comment2.params=
-comment2.target=void\ act()
+comment1.params=
+comment1.target=void\ Init()
+comment2.params=health\ shotBullets\ patternNumber\ randomMov
+comment2.target=void\ setBoss(int[],\ ShotBullet[],\ int,\ boolean)
 comment3.params=
-comment3.target=boolean\ chkAlive()
+comment3.target=void\ act()
 comment4.params=
-comment4.target=void\ deadMotion()
+comment4.target=boolean\ chkAlive()
 comment5.params=
-comment5.target=boolean\ spellBreak()
-numComments=6
+comment5.target=void\ remove()
+comment6.params=
+comment6.target=boolean\ spellBreak()
+numComments=7

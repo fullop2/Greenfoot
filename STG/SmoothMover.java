@@ -15,7 +15,8 @@ public abstract class SmoothMover extends Actor
 {
     private double exactX;
     private double exactY;
-
+    public static BaseWorld baseWorld;
+    
     /**
      * Move forward by the specified distance.
      * (Overrides the method in Actor).
@@ -76,6 +77,12 @@ public abstract class SmoothMover extends Actor
         return exactY;
     }
     
+    @Override 
+    public BaseWorld getWorld()
+    {
+        return (BaseWorld)(super.getWorld());
+    }
+    
     protected void chkisEdge()
     {
        if(isAtEdge()) 
@@ -87,10 +94,16 @@ public abstract class SmoothMover extends Actor
     @Override
     public boolean isAtEdge()
     {
-       
        if(getY() >= 15 && getY() < 720 && getX() > 60 && getX() < 570)
             return false;
        else
             return true;
     }
+    
+    public void setLocation(Actor actor)
+    {
+        super.setLocation(actor.getX(),actor.getY());
+    }
+    
+    
 }

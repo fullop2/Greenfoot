@@ -2,7 +2,9 @@
 comment0.target=BombAttack
 comment0.text=\r\n\ Bomb\ Attack\ class\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=
-comment1.target=BombAttack()
+comment1.target=void\ addBomb()
 comment2.params=
-comment2.target=void\ act()
-numComments=3
+comment2.target=int\ getBomb()
+comment3.params=
+comment3.target=void\ act()
+numComments=4

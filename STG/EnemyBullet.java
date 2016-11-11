@@ -12,6 +12,7 @@ public class EnemyBullet extends Bullet
     int bombIdle;
     boolean remove = false;
     boolean grazed = false;
+    
    public EnemyBullet(int speed, int angle,int rot)
     {
         super(speed,rot);

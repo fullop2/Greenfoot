@@ -3,94 +3,59 @@ import java.util.List;
 
 public class Player extends PlayerStatus
 {
-    // Singleton
-    private static Player player;
-    public static Player getInstance() 
+    private int x, y;
+    private int immortalTime;
+    private MovePlayer movePlayer = new MovePlayer();
+    
+    public ItemGetBorder itemGetBorder;
+    public PlayerAttack playerAttack;
+    public PlayerSprite playerSprite;
+    public BombAttack bombAttack;
+    
+    public Player()
     {
-        if(player == null) player = new Player();
-        return player;
-    }
-    
-    // Accessor
-    public double getPower() {return playerAttack.power;};
-    public double getBomb() { return bombAttack.bomb;};
-
-    public void addPower() { 
-        if(playerAttack.power + 0.01 < 4)
-                  playerAttack.power += 0.01;
-               else
-                playerAttack.power = 4;
-            }
-
-    public void addBomb() {
-        if(bombAttack.bomb < 8)
-            {
-                bombAttack.bomb  += 1;
-                ((BaseWorld)getWorld()).addBomb();
-               }
-           else 
-            bombAttack.bomb = 8;
-    }
-   
-    private PlayerSprite playerSprite;   // 플레이어 스프라이트    
-    private PlayerAttack playerAttack;   // 플레이어의 공격 클래스
-    private MovePlayer movePlayer;       // 플레이어 이동 클래스
-    private BombAttack bombAttack;       // 플레이어의 폭탄 관리 클래스
-    private ItemGetBorder itemGetBorder; // 플레이어 아이템 습득 경계선
-
-    // Player Location
-    private int xpos;
-    private int ypos;
-    
-    private Player()
-    { 
-    }
-    
-    public void reset()
-    {
-        playerSprite = new PlayerSprite();
-        playerAttack = new PlayerAttack();
-        movePlayer = new MovePlayer();
-        bombAttack = new BombAttack();
         itemGetBorder = new ItemGetBorder();
-        
-        bombAttack.immortalTime = 300;
-        bombAttack.bomb = 2.0f;
-        
-        playerAttack.power = StatusManager.GetInstance().getPower();
-        xpos = 300;
-        ypos = 600;
-        
-        getWorld().addObject(bombAttack,0,0);
-        getWorld().addObject(playerAttack,0,0);
-        getWorld().addObject(itemGetBorder,xpos,ypos);
-        getWorld().addObject(playerSprite,xpos,ypos);   
+        playerAttack = new PlayerAttack();
+        playerSprite = new PlayerSprite();
+        bombAttack = new BombAttack();
+        immortalTime = 300;
+    }
+    
+
+    public void Init()
+    {    
+       getWorld().addObject(itemGetBorder,300,600); 
+       getWorld().addObject(playerSprite,300,600);
+       getWorld().addObject(playerAttack,0,0);
+       getWorld().addObject(bombAttack,0,0);
+       playerAttack.Init();
+    }
+    
+    public void setImmortal()
+    {
+        immortalTime = 420;
     }
     
     public void act() 
     {       
-        statusUpdate();
-        setPos();
-        playerAttack.Attack();
+        locationUpdate();
         hitDetection();
-    }
+        --immortalTime;
+    } 
     
-    private void setPos()
+    private void locationUpdate()
     {
-        setLocation(xpos,ypos);
-        playerAttack.SetPosition(getX(),getY());       
-        playerSprite.setLocation(getX(),getY());
-        itemGetBorder.setLocation(getX(),getY());
-    }
-     
-    // 상태 갱신 함수
-    private void statusUpdate()
+        x = movePlayer.HorizontalMove(getX());
+        y = movePlayer.VerticalMove(getY());
+        if(StatusManager.GetInstance().getAlive())
         {
-         xpos = xpos + movePlayer.HorizontalMove();
-         ypos = ypos + movePlayer.VerticalMove();
-         if(bombAttack.immortalTime > 0)
-          {bombAttack.immortalTime--;}
+           setLocation(x,y);
+           itemGetBorder.setLocation(x,y);
+           playerSprite.setLocation(x,y);
+           playerAttack.setPosition(x,y);
+        }
     }
+
     
     // 피격 판정 함수 
     private void hitDetection()  {
@@ -99,20 +64,25 @@ public class Player extends PlayerStatus
            
            if(bullets.size() > 0 )  
            {  
-                World w = getWorld();
-                if(bombAttack.immortalTime <= 0)
+                if(immortalTime <= 0)
                 {  
-                    w.removeObjects(w.getObjects(Weapon.class));
-                    w.removeObjects(w.getObjects(EnemyBullet.class));
-                    w.removeObject(playerSprite);
-                    w.removeObject(bombAttack);
-                    w.removeObject(playerAttack);
-                    w.removeObject(itemGetBorder);
-                    w.removeObject(this);
-                    
+                    getWorld().removeObjects(getWorld().getObjects(Weapon.class));
+                    getWorld().removeObjects(getWorld().getObjects(EnemyBullet.class));
+                    removePlayer();
                     StatusManager.GetInstance().PlayerDead();
                 }
-                w.removeObjects(bullets);
+                baseWorld.removeObjects(bullets);
            } 
+    }
+    
+    
+    private void removePlayer()
+    {
+         getWorld().removeObject(itemGetBorder);
+         getWorld().removeObject(playerSprite);
+         getWorld().removeObject(playerAttack);
+         getWorld().removeObject(bombAttack);
+         getWorld().removeObject(this);
+         
     }
 }

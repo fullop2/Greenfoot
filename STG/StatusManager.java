@@ -14,10 +14,16 @@ public class StatusManager
     private static StatusManager statusManager;
     public static StatusManager GetInstance() 
     {
-        if(statusManager == null) statusManager = new StatusManager();
+        if(statusManager == null) 
+        {
+            statusManager = new StatusManager();
+        }
         return statusManager;
     }
-   // Stage
+   // World
+   private static BaseWorld world;
+    
+    // Stage
    private int nowStage;
    // boss status
    private Boss boss;
@@ -44,11 +50,16 @@ public class StatusManager
    public int getGraze() {return graze;};
    public int getPoint() {return point;};
    
+   public static void setWorld(BaseWorld baseWorld)
+   {
+       world = baseWorld;
+   }
+   
    StatusManager()
    {
    }
    
-   public void reset()
+   public void Init()
    {
        nowStage = 0;      
        revivalTime = 100;
@@ -58,14 +69,16 @@ public class StatusManager
        bomb = 2;
        graze = 0;
        point = 10000;
+       
     }
+   
     
     public void act()
     {
         if(alive)
             {
-            power = Player.getInstance().getPower();
-            bomb = Player.getInstance().getBomb();
+                power = world.player.playerAttack.getPower();
+                bomb = world.player.bombAttack.getBomb();
         }
     }
     
@@ -81,6 +94,7 @@ public class StatusManager
         grazePoint = graze / 10 - (graze - n) / 10 ;
         point += grazePoint * 100;
     }
+    
     public void PlayerDead()
     {
         if(power >= 2) power -= 1;

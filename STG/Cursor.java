@@ -40,7 +40,7 @@ public class Cursor extends GUI
             switch(state)
             {
                 case 0:
-                StatusManager.GetInstance().reset();
+                StatusManager.GetInstance().Init();
                 Greenfoot.setWorld(new BaseWorld());
                 break;
                 case 1:

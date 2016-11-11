@@ -17,6 +17,7 @@ public class Weapon extends PlayerStatus
     {
          setLocation(x,y);
     }
+    
     public void atkCmd(int angle)
     {
          ball = new SubPlayerBullet(20,angle);

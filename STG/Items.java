@@ -28,17 +28,15 @@ public abstract class Items extends SmoothMover
             
         }
         else if(StatusManager.GetInstance().getAlive())
-        {
-            
-            dx = Player.getInstance().getX() - getX();
-            dy = Player.getInstance().getY() - getY();
+        {  
+            dx = baseWorld.player.getX() - getX();
+            dy = baseWorld.player.getY() - getY();
             velocity = 15 / Math.sqrt(dx*dx+dy*dy);
  
             setLocation(getX() + dx*velocity,getY() + dy*velocity);
         }
     
         chkisEdge();
-
     }
     
     @Override
