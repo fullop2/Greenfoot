@@ -10,6 +10,7 @@ public class NormalShot extends ShotBullet
 {
     public NormalShot(int availTime,
                             Enemy enemy,
+                            int bulletType,
                             EnemyBullet obj, 
                             int mainNum,
                             int mainDelay,
@@ -21,7 +22,7 @@ public class NormalShot extends ShotBullet
                             int rotVal
                             )
     {
-        super(availTime,enemy,obj,mainNum,mainDelay,subNum,subDelay,aimAngle,playerAim,rotate,rotVal, 0);
+        super(availTime,enemy, bulletType, obj,mainNum,mainDelay,subNum,subDelay,aimAngle,playerAim,rotate,rotVal, 0);
     }
     
                 public void act()
@@ -54,7 +55,7 @@ public class NormalShot extends ShotBullet
          getWorld().addObject(e,getX(),getY());
          for(int i = - mainNum / 2; i <= mainNum / 2; i++)
          {
-             EnemyBullet o = new EnemyBullet(obj);
+             EnemyBullet o = copyEnemyBullet();
              o.turn(rrot + aimAngle * i);
              getWorld().addObject(o,getX(),getY());
          }

@@ -10,6 +10,7 @@ import greenfoot.GreenfootImage;
 public abstract class ShotBullet extends SmoothMover
 {
     // 복사할 탄막
+    private int bulletType;
     protected EnemyBullet obj;
     
     // 따라다닐 적 기체
@@ -34,6 +35,7 @@ public abstract class ShotBullet extends SmoothMover
     // 생성자
     protected ShotBullet(int availTime,
                             Enemy enemy,
+                            int bulletType,
                             EnemyBullet obj, 
                             int mainNum,
                             int mainDelay,
@@ -47,6 +49,7 @@ public abstract class ShotBullet extends SmoothMover
     {
         this.availTime = availTime;
         this.enemy = enemy;
+        this.bulletType = bulletType;
         this.obj = obj;
         this.mainNum = mainNum;
         this.mainDelay = mainDelay;
@@ -77,5 +80,24 @@ public abstract class ShotBullet extends SmoothMover
                setRotation(getRotation() + rotVal);   
          }
          rrot = getRotation();
+    }
+    
+    protected EnemyBullet copyEnemyBullet()
+    {
+        EnemyBullet enemyBullet;
+        switch(bulletType)
+        {
+            case 0:
+            enemyBullet = new EnemyBulletRed(obj);
+            break;
+            case 1:
+            enemyBullet = new EnemyBulletGreen(obj);
+            break;
+            default:
+            enemyBullet = new EnemyBulletBlue(obj);
+            break;
+        }
+        
+        return enemyBullet;
     }
 }

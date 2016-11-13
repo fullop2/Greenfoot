@@ -11,6 +11,7 @@ public class ExplosionShot extends ShotBullet
 
    public ExplosionShot(int availTime,
                             Enemy enemy,
+                            int bulletType,
                             EnemyBullet obj, 
                             int mainNum,
                             int mainDelay,
@@ -22,7 +23,7 @@ public class ExplosionShot extends ShotBullet
                             int rotVal,
                             int increaseSpeed)
     {
-        super(availTime,enemy,obj,mainNum,mainDelay,subNum,subDelay,aimAngle,playerAim,rotate,rotVal,increaseSpeed);
+        super(availTime,enemy,bulletType, obj,mainNum,mainDelay,subNum,subDelay,aimAngle,playerAim,rotate,rotVal,increaseSpeed);
     }
     public void act()
     {
@@ -44,7 +45,7 @@ public class ExplosionShot extends ShotBullet
          for(int tmp = 0;tmp < subNum; tmp++)
              for(int i = - mainNum / 2; i <= mainNum / 2; i++)
              {
-                 EnemyBullet o = new EnemyBullet(obj);
+                 EnemyBullet o = copyEnemyBullet();
                  o.turn(rrot + aimAngle * i);
                  o.speed = o.speed + tmp*increaseSpeed;
                  getWorld().addObject(o,getX(),getY());

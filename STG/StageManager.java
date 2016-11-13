@@ -30,7 +30,7 @@ public class StageManager
     private Mob mob;
     private ShotBullet shotBullet;
     private Path path[];
-   
+    private enum BulletType{Red,Blue,Green};
     
     // StageStatus
     private int nowStage = 1;
@@ -157,11 +157,13 @@ public class StageManager
     private ShotBullet parseBulletController(Enemy follower)
     {
         int increaseSpeed = Integer.parseInt(tokens.nextToken());
+        int bulletType = Integer.parseInt(tokens.nextToken());
         if(increaseSpeed == 0)
         {
             return new NormalShot(Integer.parseInt(tokens.nextToken()),            // parse AvailTime
                                   follower,                                                   // parse follower
-                                  new EnemyBullet(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken())),
+                                  bulletType,
+                                  parseEnemyBullet(bulletType),
                                   //  parse bullet speed, turn, rotating value
                                   Integer.parseInt(tokens.nextToken()), // parse bullet mainNumber
                                   Integer.parseInt(tokens.nextToken()), // parse bullet mainDelay
@@ -170,13 +172,14 @@ public class StageManager
                                   Integer.parseInt(tokens.nextToken()), // parse bullet aimAngle
                                   Boolean.parseBoolean(tokens.nextToken()), // parse playerAim
                                   Boolean.parseBoolean(tokens.nextToken()), // parse be rotating
-                                  Integer.parseInt(tokens.nextToken()) );    // parse rotate value
+                                  Integer.parseInt(tokens.nextToken()));    // parse rotate value
         }
         else
         {
              return new ExplosionShot(Integer.parseInt(tokens.nextToken()),            // parse AvailTime
                                   follower,                                                   // parse follower
-                                  new EnemyBullet(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken())),
+                                  bulletType,
+                                  parseEnemyBullet(bulletType),
                                   //  parse bullet speed, turn, rotating value
                                   Integer.parseInt(tokens.nextToken()), // parse bullet mainNumber
                                   Integer.parseInt(tokens.nextToken()), // parse bullet mainDelay
@@ -188,5 +191,25 @@ public class StageManager
                                   Integer.parseInt(tokens.nextToken()),   // parse rotate value
                                   increaseSpeed);   // parse increaseSpeed 
         }
+    }
+    
+    private EnemyBullet parseEnemyBullet(int bulletType)
+    {
+        EnemyBullet enemyBullet;
+       
+        switch(bulletType)
+        {
+            case 0:
+            enemyBullet = new EnemyBulletRed(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
+            break;
+            case 1:
+            enemyBullet = new EnemyBulletGreen(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
+            break;
+            default:
+            enemyBullet = new EnemyBulletBlue(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
+            break;
+        }
+        
+        return enemyBullet;
     }
 }
