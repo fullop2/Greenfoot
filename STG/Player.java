@@ -82,7 +82,6 @@ public class Player extends PlayerStatus
          getWorld().removeObject(playerSprite);
          getWorld().removeObject(playerAttack);
          getWorld().removeObject(bombAttack);
-         getWorld().removeObject(this);
-         
+         getWorld().removeObject(this);         
     }
 }

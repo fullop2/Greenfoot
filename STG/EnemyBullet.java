@@ -57,7 +57,9 @@ public class EnemyBullet extends Bullet
         }
         else if(remove && --bombIdle < 0)
         {
+            getWorld().addObject(new Effect(4,25),getX(),getY());
             getWorld().removeObject(this);
+            
         }
     }
 }
