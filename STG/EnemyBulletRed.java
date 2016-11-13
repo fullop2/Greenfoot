@@ -15,5 +15,6 @@ public class EnemyBulletRed extends EnemyBullet
     public EnemyBulletRed(EnemyBullet enemyBullet)
     {
         super(enemyBullet);
+       rigidBody = 10;
     }
 }

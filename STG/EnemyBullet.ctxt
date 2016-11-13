@@ -11,4 +11,6 @@ comment4.params=
 comment4.target=void\ Remove()
 comment5.params=
 comment5.target=void\ Destroy()
-numComments=6
+comment6.params=
+comment6.target=boolean\ checkHit()
+numComments=7

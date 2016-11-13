@@ -60,9 +60,8 @@ public class Player extends PlayerStatus
     // 피격 판정 함수 
     private void hitDetection()  {
 
-           List<EnemyBullet> bullets = getObjectsInRange(7,EnemyBullet.class);
-           
-           if(bullets.size() > 0 )  
+           EnemyBullet bullet = (EnemyBullet)getOneIntersectingObject(EnemyBullet.class);
+           if(bullet != null && bullet.checkHit())  
            {  
                 if(immortalTime <= 0)
                 {  
@@ -71,7 +70,8 @@ public class Player extends PlayerStatus
                     removePlayer();
                     StatusManager.GetInstance().PlayerDead();
                 }
-                baseWorld.removeObjects(bullets);
+                else
+                    {baseWorld.removeObject(bullet);}
            } 
     }
     

@@ -90,9 +90,13 @@ public abstract class ShotBullet extends SmoothMover
             case 0:
             enemyBullet = new EnemyBulletRed(obj);
             break;
-            case 1:
+            case 3:
             enemyBullet = new EnemyBulletGreen(obj);
             break;
+            case 1:
+            enemyBullet = new EnemyBulletRing(obj);
+            break;
+            
             default:
             enemyBullet = new EnemyBulletBlue(obj);
             break;

@@ -1,17 +1,17 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
 /**
  * Write a description of class enemyBall here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class EnemyBullet extends Bullet
+public abstract class EnemyBullet extends Bullet
 {
-    int delta = 30;
-    int bombIdle;
-    boolean remove = false;
-    boolean grazed = false;
+    private int delta = 30;
+    private int bombIdle;
+    protected int rigidBody;
+    private boolean remove = false;
+    public boolean grazed = false;
     
    public EnemyBullet(int speed, int angle,int rot)
     {
@@ -58,8 +58,16 @@ public class EnemyBullet extends Bullet
         else if(remove && --bombIdle < 0)
         {
             getWorld().addObject(new Effect(4,25),getX(),getY());
-            getWorld().removeObject(this);
-            
+            getWorld().removeObject(this); 
         }
+    }
+    
+    public boolean checkHit()
+    {
+        if(!getObjectsInRange(rigidBody, Player.class).isEmpty())
+            {return true;}
+        else
+        return false;
+            
     }
 }
