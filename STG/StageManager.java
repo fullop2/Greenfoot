@@ -202,12 +202,14 @@ public class StageManager
             case 0:
             enemyBullet = new EnemyBulletRed(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
             break;
-            case 1:
+            case 2:
             enemyBullet = new EnemyBulletGreen(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
             break;
-            default:
+            case 3:
             enemyBullet = new EnemyBulletBlue(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
             break;
+            default:
+            enemyBullet = new EnemyBulletRing(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
         }
         
         return enemyBullet;
