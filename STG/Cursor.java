@@ -12,11 +12,12 @@ public class Cursor extends GUI
     private int xpos,ypos;
     private int timer;
     private int speed = 60;
-    
+    private int initTimer = 30;
     public Cursor()
     {
-        timer = 2;      
+        timer = 5;      
         state = 2;
+        initTimer = 30;
     }
     
     /**
@@ -35,7 +36,7 @@ public class Cursor extends GUI
     
     private void selectMenu()
     {
-        if(Greenfoot.isKeyDown("z") || Greenfoot.isKeyDown("enter"))
+        if(--initTimer < 0 && Greenfoot.isKeyDown("z") || Greenfoot.isKeyDown("enter"))
             {
             switch(state)
             {

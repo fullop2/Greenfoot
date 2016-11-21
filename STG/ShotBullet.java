@@ -82,25 +82,19 @@ public abstract class ShotBullet extends SmoothMover
          rrot = getRotation();
     }
     
-    protected EnemyBullet copyEnemyBullet()
+    protected <T> EnemyBullet copyEnemyBullet()
     {
         EnemyBullet enemyBullet;
         switch(bulletType)
         {
             case 0:
-            enemyBullet = new EnemyBulletRed(obj);
-            break;
+            return new EnemyBulletRed(obj);
             case 1:
-            enemyBullet = new EnemyBulletGreen(obj);
-            break;
+            return enemyBullet = new EnemyBulletGreen(obj);
             case 2:
-            enemyBullet = new EnemyBulletBlue(obj);
-            break;     
+            return enemyBullet = new EnemyBulletBlue(obj);   
             default:
-            enemyBullet = new EnemyBulletRing(obj);
-            break;
+            return enemyBullet = new EnemyBulletRing(obj);
         }
-        
-        return enemyBullet;
     }
 }

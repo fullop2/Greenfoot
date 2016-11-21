@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=IntegerBoard
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ IntegerBoard\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=IntegerBoard()
+comment2.params=field
+comment2.target=IntegerBoard(int)
+comment3.params=
+comment3.target=void\ act()
+comment4.params=
+comment4.target=java.lang.String\ getField()
+comment5.params=
+comment5.target=void\ UpdateImage()
+comment6.params=field
+comment6.target=void\ UpdateField(int)
+numComments=7

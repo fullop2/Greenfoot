@@ -12,6 +12,10 @@ public class BombAttack extends PlayerStatus
     private int bombDelay;
     private int bombAvailTime;
    
+    public BombAttack()
+    {
+        bomb = 2;
+    }
     public void addBomb()
     {
         ++bomb;
@@ -24,11 +28,11 @@ public class BombAttack extends PlayerStatus
     
    public void act()
     {
-        if (--bombDelay < 0 && Greenfoot.isKeyDown("x"))
+        if (bomb > 0 && --bombDelay < 0 && Greenfoot.isKeyDown("x"))
            {
+               --bomb;
                baseWorld.player.setImmortal();
                bombDelay = 300;
-               
                bombEffect = new BombEffect(baseWorld.player.getX(),baseWorld.player.getY());
                BackgroundSwap bgs = new BackgroundSwap(30,100,100,230);
                getWorld().addObject(bombEffect,baseWorld.player.getX(),baseWorld.player.getY());

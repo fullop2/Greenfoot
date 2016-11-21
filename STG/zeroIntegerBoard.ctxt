@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=zeroIntegerBoard
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ zeroIntegerBoard\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=zeroIntegerBoard()
+comment2.params=field
+comment2.target=zeroIntegerBoard(int)
+comment3.params=
+comment3.target=void\ UpdateImage()
+numComments=4

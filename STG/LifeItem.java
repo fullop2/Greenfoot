@@ -11,6 +11,6 @@ public class LifeItem extends Items
     @Override
     protected void addItem()
     {
-        
+       baseWorld.player.addLife();
     }
 }

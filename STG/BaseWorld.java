@@ -38,6 +38,15 @@ public class BaseWorld extends World
    // Player
    public Player player;
    
+   // Status Board
+   private DoubleBoard powerBoard = new DoubleBoard();
+   private zeroIntegerBoard scoreBoard = new zeroIntegerBoard();
+   private IntegerBoard bombBoard = new IntegerBoard();
+   private IntegerBoard grazeBoard = new IntegerBoard();
+   private IntegerBoard pointBoard = new IntegerBoard();
+   private IntegerBoard lifeBoard = new IntegerBoard();
+   
+    
    public void addBomb()
    {
        LifeUI lifeUI = new LifeUI();
@@ -77,6 +86,15 @@ public class BaseWorld extends World
         BackgroundSwap bgs = new BackgroundSwap(1,10,60,255);
         addObject(bgs,480,360);
         
+        
+        
+        addObject(powerBoard,750,330);
+        addObject(bombBoard,750,290);
+        addObject(pointBoard,750,370);
+        addObject(grazeBoard,750,410);
+        addObject(scoreBoard,765,150);
+        addObject(lifeBoard,750,250);
+        
         loadingEnemy();
         SmoothMover.baseWorld = (BaseWorld)this;
         InitPlayer();
@@ -93,13 +111,14 @@ public class BaseWorld extends World
     public void act()
         {
           if(!((Greenfoot.isKeyDown("escape") && (Greenfoot.isKeyDown("shift")))))
-                {
-                UI();   // 수치 업데이트
-                statusCheck();    // 플레이어, 월드 상태 체크
-                SpawnEnemy();        
-                bgScroll(); // 배경 스크롤
-                stageChange();
-                FPS();
+          {
+              ++frame;
+              UI();   // 수치 업데이트
+              statusCheck();    // 플레이어, 월드 상태 체크
+              SpawnEnemy();        
+              bgScroll(); // 배경 스크롤
+              stageChange();
+              FPS();
         }
         else
            {
@@ -108,8 +127,6 @@ public class BaseWorld extends World
             }
         }
     
-   
-
     // 적을 호출하는 함수
    private void SpawnEnemy()
    {
@@ -160,7 +177,6 @@ public class BaseWorld extends World
             setBackground(bg2);    
    }
    
-   
    private void InitPlayer()
    {
        player = new Player();
@@ -168,9 +184,7 @@ public class BaseWorld extends World
        addObject(player,300,600);  
        player.Init();
    }
-   
-   
-   
+ 
    // 적 탄막 제거 함수
    public void bulletClear()
    {
@@ -188,16 +202,13 @@ public class BaseWorld extends World
        if(nowStage != StatusManager.GetInstance().getStage() && nowStage < 1 && frame > 0)
        {
            frame = -180;
+           nowStage++;
+           loadingEnemy();
         }
        if(frame == -60)
        {
            BackgroundSwap bgs = new BackgroundSwap(60,0,60,255);
            addObject(bgs,getWidth()/2,getHeight()/2);
-        }
-       if(frame == 0)
-        {
-          nowStage++;
-          loadingEnemy();
         }
     }
 
@@ -205,13 +216,14 @@ public class BaseWorld extends World
    private void UI()
     {   
         StatusManager.GetInstance().act();
-        showText(String.format("%.2f",StatusManager.GetInstance().getPower()), 750 ,330);
-        showText(String.format("%.2f",StatusManager.GetInstance().getBomb()), 750, 290);
-        showText(String.format("%,d",StatusManager.GetInstance().getPoint()), 750, 370);
-        showText(String.format("%,d",StatusManager.GetInstance().getGraze()), 750, 410);
-        showText(String.format("%d",(int)frame++), 610,700);
+        powerBoard.UpdateField(StatusManager.GetInstance().getPower());
+        scoreBoard.UpdateField(StatusManager.GetInstance().getScore());
+        bombBoard.UpdateField(StatusManager.GetInstance().getBomb());
+        grazeBoard.UpdateField(StatusManager.GetInstance().getGraze());
+        pointBoard.UpdateField(StatusManager.GetInstance().getPoint());
+        lifeBoard.UpdateField(StatusManager.GetInstance().getLife());  
+        showText(String.format("%d",(int)frame), 610,700);
         showText(String.format("%.1f",fps),930,700);
-        showText(new java.text.DecimalFormat("00,0000,0000").format(StatusManager.GetInstance().getScore()),765,150);
         showText(Integer.toString(getObjects(EnemyBullet.class).size()), 610, 675);
     }
    
@@ -230,6 +242,15 @@ public class BaseWorld extends World
     {
        GUI sprite = new GUI(location); // 아무것도 하지 않는 객체에 그림을 넣고 월드에 띄워줌
        addObject(sprite,xpos,ypos);
+    }
+    
+    public void GoEnd()
+    {
+        GUI gameover = new GUI();
+        gameover.setImage(new GreenfootImage("GameOver",60,Color.WHITE,new Color(0,0,0,0)));
+        addObject(gameover,300,300);
+        Greenfoot.delay(250);
+        Greenfoot.setWorld(new ScoreWorld(StatusManager.GetInstance().getScore()));
     }
     
 }

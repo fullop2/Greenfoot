@@ -30,7 +30,7 @@ public class StatusManager
    
    // player status
    private double power = 1.0f;   
-   private double bomb;
+   private int bomb;
    private boolean alive;
    private boolean dead;
    private int revivalTime;
@@ -40,15 +40,16 @@ public class StatusManager
    private int point = 10000;
    private int grazePoint;
    private Player player;
-   
+   private int life;
    // accessor
    public double getPower() {return power;};
-   public double getBomb() {return bomb;};
+   public int getBomb() {return bomb;};
    public int getStage() {return nowStage;};
    public int getScore() {return score;};
    public boolean getAlive() {return alive;};
    public int getGraze() {return graze;};
    public int getPoint() {return point;};
+   public int getLife(){return life;};
    
    public static void setWorld(BaseWorld baseWorld)
    {
@@ -69,7 +70,8 @@ public class StatusManager
        bomb = 2;
        graze = 0;
        point = 10000;
-       
+       life = 2;
+       score = 0;
     }
    
     
@@ -79,6 +81,7 @@ public class StatusManager
             {
                 power = world.player.playerAttack.getPower();
                 bomb = world.player.bombAttack.getBomb();
+                life = world.player.getLife();
         }
     }
     
@@ -99,7 +102,8 @@ public class StatusManager
     {
         if(power >= 2) power -= 1;
         else power = 1;
-        alive = false;        
+        alive = false;  
+        --life;
     }
     
     public void StrikeEnemy()
@@ -133,6 +137,8 @@ public class StatusManager
         
     public boolean Revival()
     {  
+        if(life < 0)
+            SmoothMover.baseWorld.GoEnd();
         if(!alive && --revivalTime <= 0)
             {
                 revivalTime = 100;

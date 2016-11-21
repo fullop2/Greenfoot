@@ -156,9 +156,9 @@ public class StageManager
     
     private ShotBullet parseBulletController(Enemy follower)
     {
-        int increaseSpeed = Integer.parseInt(tokens.nextToken());
+        int shotType = Integer.parseInt(tokens.nextToken());
         int bulletType = Integer.parseInt(tokens.nextToken());
-        if(increaseSpeed == 0)
+        if(shotType == 0)
         {
             return new NormalShot(Integer.parseInt(tokens.nextToken()),            // parse AvailTime
                                   follower,                                                   // parse follower
@@ -174,7 +174,7 @@ public class StageManager
                                   Boolean.parseBoolean(tokens.nextToken()), // parse be rotating
                                   Integer.parseInt(tokens.nextToken()));    // parse rotate value
         }
-        else
+        else if(shotType == 1)
         {
              return new ExplosionShot(Integer.parseInt(tokens.nextToken()),            // parse AvailTime
                                   follower,                                                   // parse follower
@@ -189,29 +189,35 @@ public class StageManager
                                   Boolean.parseBoolean(tokens.nextToken()), // parse playerAim
                                   Boolean.parseBoolean(tokens.nextToken()), // parse be rotating
                                   Integer.parseInt(tokens.nextToken()),   // parse rotate value
-                                  increaseSpeed);   // parse increaseSpeed 
+                                  Integer.parseInt(tokens.nextToken()));   // parse increaseSpeed 
+        }
+        else
+        {
+            return new RandomShot(Integer.parseInt(tokens.nextToken()),            // parse AvailTime
+                                  follower,                                                   // parse follower
+                                  bulletType,
+                                  parseEnemyBullet(bulletType),
+                                  //  parse bullet speed, turn, rotating value
+                                  Integer.parseInt(tokens.nextToken()), // parse bullet mainDelay
+                                  Integer.parseInt(tokens.nextToken()), // parse bullet subNumber
+                                  Integer.parseInt(tokens.nextToken()), // parse bullet subDelay
+                                  Integer.parseInt(tokens.nextToken()), // parse bullet aimAngle
+                                  Integer.parseInt(tokens.nextToken())); // parse angle range
         }
     }
     
     private EnemyBullet parseEnemyBullet(int bulletType)
     {
-        EnemyBullet enemyBullet;
-       
         switch(bulletType)
         {
             case 0:
-            enemyBullet = new EnemyBulletRed(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
-            break;
+            return new EnemyBulletRed(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
+            case 1:
+            return new EnemyBulletGreen(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
             case 2:
-            enemyBullet = new EnemyBulletGreen(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
-            break;
-            case 3:
-            enemyBullet = new EnemyBulletBlue(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
-            break;
+            return new EnemyBulletBlue(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
             default:
-            enemyBullet = new EnemyBulletRing(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
+            return new EnemyBulletRing(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
         }
-        
-        return enemyBullet;
     }
 }

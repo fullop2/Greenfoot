@@ -5,6 +5,7 @@ public class Player extends PlayerStatus
 {
     private int x, y;
     private int immortalTime;
+    private int life;
     private MovePlayer movePlayer = new MovePlayer();
     
     public ItemGetBorder itemGetBorder;
@@ -19,6 +20,7 @@ public class Player extends PlayerStatus
         playerSprite = new PlayerSprite();
         bombAttack = new BombAttack();
         immortalTime = 300;
+        life = StatusManager.GetInstance().getLife();
     }
     
 
@@ -29,6 +31,17 @@ public class Player extends PlayerStatus
        getWorld().addObject(playerAttack,0,0);
        getWorld().addObject(bombAttack,0,0);
        playerAttack.Init();
+    }
+    
+    
+    public void addLife()
+    {
+        ++life;
+    }
+    
+    public int getLife()
+    {
+        return life;
     }
     
     public void setImmortal()
