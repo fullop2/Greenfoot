@@ -9,7 +9,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class NormalShot extends ShotBullet
 {
     public NormalShot(int availTime,
-                            Enemy enemy,
                             int bulletType,
                             EnemyBullet obj, 
                             int mainNum,
@@ -22,7 +21,7 @@ public class NormalShot extends ShotBullet
                             int rotVal
                             )
     {
-        super(availTime,enemy, bulletType, obj,mainNum,mainDelay,subNum,subDelay,aimAngle,playerAim,rotate,rotVal, 0);
+        super(availTime, bulletType, obj,mainNum,mainDelay,subNum,subDelay,aimAngle,playerAim,rotate,rotVal, 0);
     }
     
                 public void act()

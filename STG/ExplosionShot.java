@@ -10,7 +10,6 @@ public class ExplosionShot extends ShotBullet
 {
 
    public ExplosionShot(int availTime,
-                            Enemy enemy,
                             int bulletType,
                             EnemyBullet obj, 
                             int mainNum,
@@ -23,7 +22,7 @@ public class ExplosionShot extends ShotBullet
                             int rotVal,
                             int increaseSpeed)
     {
-        super(availTime,enemy,bulletType, obj,mainNum,mainDelay,subNum,subDelay,aimAngle,playerAim,rotate,rotVal,increaseSpeed);
+        super(availTime,bulletType, obj,mainNum,mainDelay,subNum,subDelay,aimAngle,playerAim,rotate,rotVal,increaseSpeed);
     }
     public void act()
     {

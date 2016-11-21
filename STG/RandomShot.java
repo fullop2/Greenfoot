@@ -13,7 +13,6 @@ public class RandomShot extends ShotBullet
     private int angleRange;
     
    public RandomShot(int availTime,
-                            Enemy enemy,
                             int bulletType,
                             EnemyBullet obj, 
                             int mainDelay,
@@ -22,8 +21,10 @@ public class RandomShot extends ShotBullet
                             int aimAngle,
                             int angleRange)
     {
-        super(availTime,enemy,bulletType, obj,0,mainDelay,subNum,subDelay,aimAngle,false,false, 0,0);
+        super(availTime,bulletType, obj,0,mainDelay,subNum,subDelay,aimAngle,false,false, 0,0);
         this.angleRange = angleRange;
+        subTimeCount = 0;
+        subNumCount = 0;
     }
     public void act()
     {
@@ -38,25 +39,22 @@ public class RandomShot extends ShotBullet
          Effect e = new Effect(effect);
          getWorld().addObject(e,getX(),getY());
          
-         if(++subTimeCount < subDelay)
+         if(++subTimeCount > subDelay)
          {
-             if(++subNumCount < subNum)
-             {
-                 EnemyBullet o = copyEnemyBullet();
-                 o.turn(rrot + aimAngle + angleRange / 2 - Greenfoot.getRandomNumber(angleRange));
-                 baseWorld.addObject(o,getX(),getY());
-             }
-             else
-             {
-                 subNumCount = 0;
-             }
+                if(++subNumCount < subNum)
+                {
+                     EnemyBullet o = copyEnemyBullet();
+                     o.turn(rrot + aimAngle + angleRange / 2 - Greenfoot.getRandomNumber(angleRange));
+                     getWorld().addObject(o,getX(),getY());
+                }
+                else
+                {
+                    subNumCount = 0;
+                    subTimeCount = 0;
+                    time = mainDelay;
+                }
          }
-         else
-         {
-             time = mainDelay;
-             subTimeCount = 0;
-             
-         }
+
     }
   
    

@@ -34,7 +34,6 @@ public abstract class ShotBullet extends SmoothMover
     
     // 생성자
     protected ShotBullet(int availTime,
-                            Enemy enemy,
                             int bulletType,
                             EnemyBullet obj, 
                             int mainNum,
@@ -48,7 +47,6 @@ public abstract class ShotBullet extends SmoothMover
                             int increaseSpeed)
     {
         this.availTime = availTime;
-        this.enemy = enemy;
         this.bulletType = bulletType;
         this.obj = obj;
         this.mainNum = mainNum;
@@ -93,8 +91,10 @@ public abstract class ShotBullet extends SmoothMover
             return enemyBullet = new EnemyBulletGreen(obj);
             case 2:
             return enemyBullet = new EnemyBulletBlue(obj);   
-            default:
+            case 3:
             return enemyBullet = new EnemyBulletRing(obj);
+            default:
+            return enemyBullet = new EnemyBulletSeed(obj);
         }
     }
 }

@@ -161,7 +161,6 @@ public class StageManager
         if(shotType == 0)
         {
             return new NormalShot(Integer.parseInt(tokens.nextToken()),            // parse AvailTime
-                                  follower,                                                   // parse follower
                                   bulletType,
                                   parseEnemyBullet(bulletType),
                                   //  parse bullet speed, turn, rotating value
@@ -177,7 +176,6 @@ public class StageManager
         else if(shotType == 1)
         {
              return new ExplosionShot(Integer.parseInt(tokens.nextToken()),            // parse AvailTime
-                                  follower,                                                   // parse follower
                                   bulletType,
                                   parseEnemyBullet(bulletType),
                                   //  parse bullet speed, turn, rotating value
@@ -193,8 +191,7 @@ public class StageManager
         }
         else
         {
-            return new RandomShot(Integer.parseInt(tokens.nextToken()),            // parse AvailTime
-                                  follower,                                                   // parse follower
+            return new RandomShot(Integer.parseInt(tokens.nextToken()),            // parse AvailTime 
                                   bulletType,
                                   parseEnemyBullet(bulletType),
                                   //  parse bullet speed, turn, rotating value
@@ -216,8 +213,10 @@ public class StageManager
             return new EnemyBulletGreen(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
             case 2:
             return new EnemyBulletBlue(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
-            default:
+            case 3:
             return new EnemyBulletRing(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
+            default:
+            return new EnemyBulletSeed(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
         }
     }
 }

@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.target=EnemyBulletSeed
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ EnemyBulletSeed\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=speed\ angle\ rot
+comment1.target=EnemyBulletSeed(int,\ int,\ int)
+comment2.params=enemyBullet
+comment2.target=EnemyBulletSeed(EnemyBullet)
+numComments=3
