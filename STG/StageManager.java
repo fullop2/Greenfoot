@@ -23,7 +23,7 @@ public class StageManager
     
     // Boss
     private Boss boss;
-    private ShotBullet shotBullets[];
+    private ShotBullet shotBullets[][];
     private int health[];
     
     // Mob
@@ -118,7 +118,7 @@ public class StageManager
          boss.setPosition(Integer.parseInt(tokens.nextToken()),Integer.parseInt(tokens.nextToken()));
          boolean randomMove = Boolean.parseBoolean(tokens.nextToken());                            // parse randomMove
          int patternNumber = Integer.parseInt(tokens.nextToken());                               // parse patternNumber
-         shotBullets = new ShotBullet[patternNumber];
+         shotBullets = new ShotBullet[patternNumber][];
          for(int pattern = 0; pattern < patternNumber; pattern++)
          {
              line = br.readLine();
