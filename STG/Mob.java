@@ -21,8 +21,10 @@ public class Mob extends Enemy
     private double dx,dy;
     private double length;
     
-    public Mob()
+    public Mob(int mobType)
     {
+        setImage("Mob"+ Integer.toString(mobType) +".png");
+        
     }
     
     public void set(Path path[], ShotBullet shotBullet,int MAXpath,int health,int speed)
@@ -58,12 +60,18 @@ public class Mob extends Enemy
             dx = path[nowpath].getX() - getX();
             dy = path[nowpath].getY() - getY();
             length = Math.sqrt(dx*dx+dy*dy);
-            if(dx < 5 && dy < 5)
-                nowpath++;
+            if(Math.abs(dx) < 5 && Math.abs(dy) < 5)
+                {
+                    if(path[nowpath].getDelay() > 0)
+                        {dx = 0; dy = 0;}
+                    else
+                        {nowpath++;}
+                }
             
             dx /= length;
             dy /= length;
         }
+        
         setLocation(getX() + dx*speed,getY() + dy*speed);
     }
     

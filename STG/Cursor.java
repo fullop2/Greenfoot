@@ -16,7 +16,7 @@ public class Cursor extends GUI
     public Cursor()
     {
         timer = 5;      
-        state = 2;
+        state = 1;
         initTimer = 30;
     }
     
@@ -45,9 +45,6 @@ public class Cursor extends GUI
                 Greenfoot.setWorld(new BaseWorld());
                 break;
                 case 1:
-                
-                break;
-                case 2:
                 System.exit(0);
                 break;
                 default:
@@ -64,7 +61,7 @@ public class Cursor extends GUI
         }
         if(timer == 0)
         {
-            if(Greenfoot.isKeyDown("up") && ypos > 480)
+            if(Greenfoot.isKeyDown("up") && ypos > 540)
             {
                 ypos -= speed;
                 state--;

@@ -31,6 +31,7 @@ public class Player extends PlayerStatus
        getWorld().addObject(playerAttack,0,0);
        getWorld().addObject(bombAttack,0,0);
        playerAttack.Init();
+       bombAttack.Init();
     }
     
     

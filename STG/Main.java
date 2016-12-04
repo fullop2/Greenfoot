@@ -21,8 +21,8 @@ public class Main extends World
         super(960, 720, 1); 
         
 
-        MakeUI("UI-start.png",xpos,ypos-120);
-        MakeUI("UI-setting.png",xpos,ypos-60);
+        MakeUI("UI-start.png",xpos,ypos-60);
+   
         MakeUI("UI-exit.png",xpos,ypos);
 
         addObject(new Cursor(),xpos - xpos / 2 - 15, ypos);

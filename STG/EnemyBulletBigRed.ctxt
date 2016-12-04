@@ -1,8 +1,8 @@
 #BlueJ class context
-comment0.target=EnemyBulletGreen
+comment0.target=EnemyBulletBigRed
 comment0.text=\r\n\ Write\ a\ description\ of\ class\ EnemyBulletGreen\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=speed\ angle\ rot
-comment1.target=EnemyBulletGreen(int,\ int,\ int)
+comment1.target=EnemyBulletBigRed(int,\ int,\ int)
 comment2.params=enemyBullet
-comment2.target=EnemyBulletGreen(EnemyBullet)
+comment2.target=EnemyBulletBigRed(EnemyBullet)
 numComments=3

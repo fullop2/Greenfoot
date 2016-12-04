@@ -6,13 +6,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class EnemyBulletGreen extends EnemyBullet
+public class EnemyBulletBigRed extends EnemyBullet
 {
-    public EnemyBulletGreen(int speed, int angle,int rot)
+    public EnemyBulletBigRed(int speed, int angle,int rot)
     {
         super(speed,0,rot);
     }   
-    public EnemyBulletGreen(EnemyBullet enemyBullet)
+    public EnemyBulletBigRed(EnemyBullet enemyBullet)
     {
         super(enemyBullet);
        rigidBody = 10;

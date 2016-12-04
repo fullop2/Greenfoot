@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.target=EnemyBulletBigBlue
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ EnemyBulletRing\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=speed\ angle\ rot
+comment1.target=EnemyBulletBigBlue(int,\ int,\ int)
+comment2.params=enemyBullet
+comment2.target=EnemyBulletBigBlue(EnemyBullet)
+numComments=3

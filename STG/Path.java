@@ -27,6 +27,6 @@ public class Path
 
         public int getDelay()
      {
-         return delay--;
+         return --delay;
     }
 }

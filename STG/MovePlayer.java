@@ -33,7 +33,7 @@ public class MovePlayer
     
     private void ShiftPushed()
     {
-       if(Greenfoot.isKeyDown("shift"))  { tmpSpeed = speed - 1;}
+       if(Greenfoot.isKeyDown("shift"))  { tmpSpeed = speed - 2;}
        else { tmpSpeed = speed;}
     }
 }

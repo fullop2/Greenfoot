@@ -25,7 +25,7 @@ public class StageManager
     private Boss boss;
     private ShotBullet shotBullets[][];
     private int health[];
-    
+    private int bulletControllerNumber[];
     // Mob
     private Mob mob;
     private ShotBullet shotBullet;
@@ -57,14 +57,9 @@ public class StageManager
     // world에서 적을 불러오는데 사용되는 함수
     public Enemy getEnemy(double t)
     {
-        if(cnt < MAX)
-        {
-            if(t >= Time[cnt])
-            {     
-                return enemyPool[cnt++];
-            }
-            else
-            return null;
+        if(cnt < MAX && t >= Time[cnt])
+        { 
+            return enemyPool[cnt++];
         }
         else
         return null;
@@ -101,7 +96,7 @@ public class StageManager
             }
             else
             {
-                ParseMob();
+                ParseMob(input);
             }
             cnt++;
         }
@@ -113,26 +108,34 @@ public class StageManager
     
     private void ParseBoss() throws IOException 
     {
-         boss = new Boss();
+         boss = new Boss(nowStage++);
          health = new int[6];
          boss.setPosition(Integer.parseInt(tokens.nextToken()),Integer.parseInt(tokens.nextToken()));
          boolean randomMove = Boolean.parseBoolean(tokens.nextToken());                            // parse randomMove
          int patternNumber = Integer.parseInt(tokens.nextToken());                               // parse patternNumber
-         shotBullets = new ShotBullet[patternNumber][];
+         bulletControllerNumber = new int[patternNumber];
+         shotBullets = new ShotBullet[patternNumber][10];
          for(int pattern = 0; pattern < patternNumber; pattern++)
          {
              line = br.readLine();
              tokens = new StringTokenizer( line, ", " );
-             health[pattern] = Integer.parseInt(tokens.nextToken());                             // parse spellHealth
-             shotBullets[pattern] = parseBulletController(boss);
+             health[pattern] = Integer.parseInt(tokens.nextToken());                        // parse spellHealth
+             bulletControllerNumber[pattern] = Integer.parseInt(tokens.nextToken());        // parse Spell's bulletController Number
+             
+             for(int i = 0; i < bulletControllerNumber[pattern]; i++)
+             {
+                 line = br.readLine();
+                 tokens = new StringTokenizer( line, ", " );
+                 shotBullets[pattern][i] = parseBulletController(boss);
+             }
             }
-            boss.setBoss(health,shotBullets,patternNumber,randomMove);
+            boss.setBoss(health,shotBullets,patternNumber,bulletControllerNumber,randomMove);
             enemyPool[cnt] = boss;
     }
     
-    private void ParseMob() throws IOException
+    private void ParseMob(int mobType) throws IOException
     {
-        mob = new Mob();
+        mob = new Mob(mobType);
         mob.setPosition(Integer.parseInt(tokens.nextToken()),Integer.parseInt(tokens.nextToken()));
         int pathNum = Integer.parseInt(tokens.nextToken());
         int moveSpeed = Integer.parseInt(tokens.nextToken());
@@ -154,13 +157,16 @@ public class StageManager
         enemyPool[cnt] = mob;
     }
     
-    private ShotBullet parseBulletController(Enemy follower)
+    private ShotBullet parseBulletController(Enemy enemy)
     {
         int shotType = Integer.parseInt(tokens.nextToken());
         int bulletType = Integer.parseInt(tokens.nextToken());
         if(shotType == 0)
         {
-            return new NormalShot(Integer.parseInt(tokens.nextToken()),            // parse AvailTime
+            return new NormalShot(enemy,
+                                Integer.parseInt(tokens.nextToken()),Integer.parseInt(tokens.nextToken()),
+                                    Integer.parseInt(tokens.nextToken()),
+                                   Integer.parseInt(tokens.nextToken()),            // parse AvailTime
                                   bulletType,
                                   parseEnemyBullet(bulletType),
                                   //  parse bullet speed, turn, rotating value
@@ -171,11 +177,15 @@ public class StageManager
                                   Integer.parseInt(tokens.nextToken()), // parse bullet aimAngle
                                   Boolean.parseBoolean(tokens.nextToken()), // parse playerAim
                                   Boolean.parseBoolean(tokens.nextToken()), // parse be rotating
-                                  Integer.parseInt(tokens.nextToken()));    // parse rotate value
+                                  Integer.parseInt(tokens.nextToken()),    // parse rotate value
+                                  Integer.parseInt(tokens.nextToken()));
         }
         else if(shotType == 1)
         {
-             return new ExplosionShot(Integer.parseInt(tokens.nextToken()),            // parse AvailTime
+             return new ExplosionShot(enemy,
+                                    Integer.parseInt(tokens.nextToken()),Integer.parseInt(tokens.nextToken()),
+                                Integer.parseInt(tokens.nextToken()),
+                                 Integer.parseInt(tokens.nextToken()),            // parse AvailTime
                                   bulletType,
                                   parseEnemyBullet(bulletType),
                                   //  parse bullet speed, turn, rotating value
@@ -187,19 +197,25 @@ public class StageManager
                                   Boolean.parseBoolean(tokens.nextToken()), // parse playerAim
                                   Boolean.parseBoolean(tokens.nextToken()), // parse be rotating
                                   Integer.parseInt(tokens.nextToken()),   // parse rotate value
-                                  Integer.parseInt(tokens.nextToken()));   // parse increaseSpeed 
+                                  Integer.parseInt(tokens.nextToken()),   // parse increaseSpeed 
+                                  Integer.parseInt(tokens.nextToken()));
         }
         else
         {
-            return new RandomShot(Integer.parseInt(tokens.nextToken()),            // parse AvailTime 
+            return new RandomShot(enemy,
+                                    Integer.parseInt(tokens.nextToken()),Integer.parseInt(tokens.nextToken()),
+                                Integer.parseInt(tokens.nextToken()),
+                                 Integer.parseInt(tokens.nextToken()),            // parse AvailTime 
                                   bulletType,
                                   parseEnemyBullet(bulletType),
                                   //  parse bullet speed, turn, rotating value
                                   Integer.parseInt(tokens.nextToken()), // parse bullet mainDelay
                                   Integer.parseInt(tokens.nextToken()), // parse bullet subNumber
                                   Integer.parseInt(tokens.nextToken()), // parse bullet subDelay
+                                  Boolean.parseBoolean(tokens.nextToken()), // parse playerAim
                                   Integer.parseInt(tokens.nextToken()), // parse bullet aimAngle
-                                  Integer.parseInt(tokens.nextToken())); // parse angle range
+                                  Integer.parseInt(tokens.nextToken()), // parse angle range
+                                  Integer.parseInt(tokens.nextToken()));
         }
     }
     
@@ -210,13 +226,17 @@ public class StageManager
             case 0:
             return new EnemyBulletRed(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
             case 1:
-            return new EnemyBulletGreen(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
+            return new EnemyBulletBigRed(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
             case 2:
             return new EnemyBulletBlue(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
             case 3:
+            return new EnemyBulletBigBlue(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
+            case 4:
+            return new EnemyBulletSeed(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
+            case 5:
             return new EnemyBulletRing(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
             default:
-            return new EnemyBulletSeed(Integer.parseInt(tokens.nextToken()),0,Integer.parseInt(tokens.nextToken()));
+            return null;
         }
     }
 }

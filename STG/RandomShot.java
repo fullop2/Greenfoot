@@ -11,51 +11,66 @@ public class RandomShot extends ShotBullet
     private int subTimeCount;
     private int subNumCount;
     private int angleRange;
+    private int timeRevise;
     
-   public RandomShot(int availTime,
+   public RandomShot(Actor enemy,
+                            int relX, int relY,
+                            int initIdle,
+                            int availTime,
                             int bulletType,
                             EnemyBullet obj, 
                             int mainDelay,
                             int subNum,
                             int subDelay,
-                            int aimAngle,
-                            int angleRange)
+                            boolean playerAim,
+                            int aimAngle,  
+                            int angleRange,
+                            int initRotate
+                            )
     {
-        super(availTime,bulletType, obj,0,mainDelay,subNum,subDelay,aimAngle,false,false, 0,0);
+        super(enemy,relX,relY,initIdle,availTime,bulletType, obj,0,mainDelay,subNum,subDelay,aimAngle,playerAim,false, 0,0,initRotate);
         this.angleRange = angleRange;
+        if(playerAim == true)
+        this.aimAngle = 0;
         subTimeCount = 0;
         subNumCount = 0;
     }
     public void act()
     {
-        if(--time < 0)
-        {
-                Shot();
+        if(--initIdle <= 0)
+            {
+            if(--time <= 0)
+            {
+                    Shot();
+            }
         }
+        additionalProcess();
     }  
     
     private void Shot()
     {
          Effect e = new Effect(effect);
          getWorld().addObject(e,getX(),getY());
-         
-         if(++subTimeCount > subDelay)
+         ++timeRevise;
+         if(++subTimeCount >= subDelay)
          {
-                if(++subNumCount < subNum)
-                {
-                     EnemyBullet o = copyEnemyBullet();
-                     o.turn(rrot + aimAngle + angleRange / 2 - Greenfoot.getRandomNumber(angleRange));
-                     getWorld().addObject(o,getX(),getY());
+             if(++subNumCount <= subNum)
+             {
+                 EnemyBullet o = copyEnemyBullet();
+                 o.turn(rrot + aimAngle + angleRange / 2 - Greenfoot.getRandomNumber(angleRange));
+                 getWorld().addObject(o,getX(),getY());
+                 
                 }
                 else
                 {
                     subNumCount = 0;
                     subTimeCount = 0;
-                    time = mainDelay;
+                    time = mainDelay - timeRevise;
+                    timeRevise = 0;
                 }
-         }
+            }
 
-    }
-  
-   
+            Turning();
+ 
+    }  
 }

@@ -28,7 +28,7 @@ public class BaseWorld extends World
    private float frame = 1;
    private long prevTime;
    private double fps = 0.0f;
-   
+   private int clearIdle = 120;
    // absorbItem
    private AbsorbItem absorbItem = new AbsorbItem();
    
@@ -47,16 +47,7 @@ public class BaseWorld extends World
    private IntegerBoard lifeBoard = new IntegerBoard();
    
     
-   public void addBomb()
-   {
-       LifeUI lifeUI = new LifeUI();
-       LifeStack.add(lifeUI);
-       addObject(lifeUI,600+30*LifeStack.size(),300);
-    }
-   
-   // GUI Status Display
-   Stack<LifeUI> LifeStack = new Stack<LifeUI>();
-   
+  
    // Constructor
     public BaseWorld()
     {          
@@ -70,7 +61,7 @@ public class BaseWorld extends World
     private void Init()
     {
         
-        setPaintOrder(GUI.class,Player.class,Effect.class,Bullet.class,Weapon.class,Enemy.class,PlayerSprite.class,BombEffect.class,Items.class); // 드로잉 우선 순위
+        setPaintOrder(GUI.class,Player.class,Effect.class,Bullet.class,EnemyBulletRing.class,Weapon.class,Enemy.class,PlayerSprite.class,BombEffect.class,Items.class); // 드로잉 우선 순위
         
         frame = 1;
         
@@ -180,7 +171,6 @@ public class BaseWorld extends World
    private void InitPlayer()
    {
        player = new Player();
- 
        addObject(player,300,600);  
        player.Init();
    }
@@ -201,14 +191,24 @@ public class BaseWorld extends World
    {
        if(nowStage != StatusManager.GetInstance().getStage() && nowStage < 1 && frame > 0)
        {
-           frame = -180;
-           nowStage++;
-           loadingEnemy();
+           frame = -240;
+        }
+       if(frame == -120)
+        {
+            BackgroundSwap bgs = new BackgroundSwap(60,0,60,255);
+           addObject(bgs,getWidth()/2,getHeight()/2);
         }
        if(frame == -60)
        {
-           BackgroundSwap bgs = new BackgroundSwap(60,0,60,255);
-           addObject(bgs,getWidth()/2,getHeight()/2);
+           nowStage++;
+           loadingEnemy();
+        }
+       if(StatusManager.GetInstance().getStage() == 2)
+        {
+            if(clearIdle-- == 120)
+                MakeUI("Clear.png",300,300);
+            else if(clearIdle == 0)
+                Greenfoot.setWorld(new ScoreWorld(StatusManager.GetInstance().getScore()));
         }
     }
 

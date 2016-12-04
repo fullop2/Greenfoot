@@ -9,7 +9,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class ExplosionShot extends ShotBullet
 {
 
-   public ExplosionShot(int availTime,
+   public ExplosionShot(Actor enemy,
+                        int relX, int relY,
+                            int initIdle,
+                            int availTime,
                             int bulletType,
                             EnemyBullet obj, 
                             int mainNum,
@@ -20,20 +23,26 @@ public class ExplosionShot extends ShotBullet
                             boolean playerAim,
                             boolean rotate,
                             int rotVal,
-                            int increaseSpeed)
+                            int increaseSpeed,
+                            int initRotate)
     {
-        super(availTime,bulletType, obj,mainNum,mainDelay,subNum,subDelay,aimAngle,playerAim,rotate,rotVal,increaseSpeed);
+        super(enemy,relX,relY,initIdle, availTime,bulletType, obj,mainNum,mainDelay,subNum,subDelay,aimAngle,playerAim,rotate,rotVal,increaseSpeed,initRotate);
     }
+    
     public void act()
     {
-        if(--time < 0)
-        {
-                Turning();
-                Shot();
-                time = mainDelay;
-                if(!playerAim)
-                       setRotation(getRotation() + 1);
+        if(--initIdle <= 0)
+            {
+            if(--time < 0)
+            {
+                    Turning();
+                    Shot();
+                    time = mainDelay;
+                    if(!playerAim)
+                           setRotation(getRotation() + 1);
+            }
         }
+        additionalProcess();
     }  
     
     private void Shot()

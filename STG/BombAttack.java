@@ -12,13 +12,18 @@ public class BombAttack extends PlayerStatus
     private int bombDelay;
     private int bombAvailTime;
    
-    public BombAttack()
+
+    public void Init()
     {
-        bomb = 2;
+        bomb = StatusManager.GetInstance().getBomb();
+        if(bomb < 2)
+            bomb = 2;
     }
+    
     public void addBomb()
     {
-        ++bomb;
+        if(bomb < 8)
+            ++bomb;
     }
     
     public int getBomb()

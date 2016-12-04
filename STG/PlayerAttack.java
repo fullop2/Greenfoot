@@ -38,20 +38,18 @@ public class PlayerAttack extends PlayerStatus
     public void Init()
     {
          getWorld().addObject(subWeapon[0],baseWorld.player.getX() + wL[weaponCount][0][0], baseWorld.player.getY() + wL[weaponCount][0][1]);
+         power = StatusManager.GetInstance().getPower();
+         setWeapon();
     }
     
     public void addPower()
     { 
-        if(power + 0.01 < 4)
-            {power += 0.01;}
+        if(power + 0.1 < 4)
+            {power += 0.1;}
         else
             {power = 4;}
         
-        weaponCount = (int)power - 1;
-        for(int i = 0; i <= weaponCount; i++)
-        { 
-             getWorld().addObject(subWeapon[i],baseWorld.player.getX() + wL[weaponCount][i][0], baseWorld.player.getY() + wL[weaponCount][i][1]); 
-        }  
+            setWeapon();
     }
     
     public double getPower()
@@ -59,6 +57,14 @@ public class PlayerAttack extends PlayerStatus
         return power;
     }
     
+    public void setWeapon()
+    {
+        weaponCount = (int)power - 1;
+        for(int i = 0; i <= weaponCount; i++)
+        { 
+             getWorld().addObject(subWeapon[i],baseWorld.player.getX() + wL[weaponCount][i][0], baseWorld.player.getY() + wL[weaponCount][i][1]); 
+        }  
+    }
     
     public void act()
     {

@@ -67,10 +67,10 @@ public class StatusManager
        alive = true;
        score = 0;
        power = 1;
-       bomb = 2;
+       bomb = 8;
        graze = 0;
        point = 10000;
-       life = 2;
+       life = 8;
        score = 0;
     }
    
@@ -95,7 +95,7 @@ public class StatusManager
     {
         graze += n;
         grazePoint = graze / 10 - (graze - n) / 10 ;
-        point += grazePoint * 100;
+        point += grazePoint * 10;
     }
     
     public void PlayerDead()
@@ -124,7 +124,7 @@ public class StatusManager
     
     public void BombOn()
     {
-        bombTimer = 100;
+        bombTimer = 200;
     }
     
     public boolean isBombOn()
